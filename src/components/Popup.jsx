@@ -7,7 +7,7 @@ export default function Popup({ imageUrl, setPopupOpen, title, description }) {
       className="popup-background"
     >
       <div className="popup-modal">
-        <img src={imageUrl} />
+        <img src={require(`../media/images/${imageUrl}`)} />
         <h3>{title}</h3>
         <p>{description}</p>
       </div>

@@ -6,8 +6,8 @@ export default function Landing() {
       <ul className="landing-menu">
         <h1>BIENVENUE</h1>
         <li>
-          <Link className="link-home" to="/home">
-            Entrer
+          <Link className="link-home" to="/login">
+            Connexion
           </Link>
         </li>
         <li>
@@ -16,6 +16,9 @@ export default function Landing() {
           </Link>
         </li>
       </ul>
+      <Link style={{ textDecoration: "underline" }} to="/register">
+        Pas encore inscrit ? Cliquez ici !
+      </Link>
     </div>
   );
 }
