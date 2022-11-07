@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 export default function MiniGame() {
   return (
     <>
-      <Sidebar />
+      <h1>MINIGAME</h1>
     </>
   );
 }

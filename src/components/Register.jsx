@@ -1,18 +1,11 @@
 import { Formik, useFormik } from "formik";
-import { CgFormatLineHeight } from "react-icons/cg";
+import { Link } from "react-router-dom";
 import MultipleSelect from "./Multiselect";
 import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
-import {
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Button,
-} from "@mui/material";
+import { TextField, Select, MenuItem, InputLabel, Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-const theme = createTheme({
+export const theme = createTheme({
   status: {
     danger: "#e53e3e",
   },
@@ -51,10 +44,7 @@ export default function Register() {
 
   return (
     <div className="register-form w-screen h-screen">
-      <div
-        className="register-right h-screen flex justify-center items-center"
-        // style={{ border: "5px solid blue" }}
-      >
+      <div className="register-right h-screen flex justify-center items-center">
         <form
           onSubmit={formik.handleSubmit}
           className=" bg-white rounded-3xl p-10 flex flex-col absolute right-80"
@@ -136,11 +126,19 @@ export default function Register() {
               <button>Submit</button>
             </Button>
           </ThemeProvider>
+          <div className="text-center pt-12 pb-12">
+            <p>
+              Vous avez déjà un compte ?{" "}
+              <Link className="underline font-semibold" to="/login">
+                Connectez-vous ici.
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
-      <div class="bg"></div>
-      <div class="bg bg2"></div>
-      <div class="bg bg3"></div>
+      <div className="bg"></div>
+      <div className="bg bg2"></div>
+      <div className="bg bg3"></div>
     </div>
   );
 }

@@ -11,14 +11,11 @@ export default function Landing() {
           </Link>
         </li>
         <li>
-          <Link className="link-minigame" to="/mini-game">
+          <Link className="link-minigame" to="/minigame">
             Accéder aux mini-jeux
           </Link>
         </li>
       </ul>
-      <Link style={{ textDecoration: "underline" }} to="/register">
-        Pas encore inscrit ? Cliquez ici !
-      </Link>
     </div>
   );
 }

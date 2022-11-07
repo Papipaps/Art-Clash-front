@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { FiGithub, FiGrid, FiUser, FiX, FiHome } from "react-icons/fi";
 import { CgController } from "react-icons/cg";
+import { useNavigate, redirect } from "react-router-dom";
+import AuthService from "../service/auth-service";
+
 const Github_icon = FiGithub;
 const Profil_icon = FiUser;
 const Gallery_icon = FiGrid;
@@ -9,11 +12,16 @@ const Home_icon = FiHome;
 const Quit_icon = FiX;
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  function logout() {
+    AuthService.logout();
+    window.location.reload();
+  }
   return (
     <nav>
-      <div className="fixed place-content-evenly top-0 left-0 h-screen w-16 flex flex-col bg-white shadow-lg shadow-yellow-400 ">
+      <div className="fixed place-content-evenly top-0 left-0 min-h-screen w-16 flex flex-col bg-white shadow-lg shadow-yellow-400 ">
         <Link to="/home">
-          <SidebarIcon icon={<Home_icon size="18" />} text="Document" />
+          <SidebarIcon icon={<Home_icon size="18" />} text="Accueil" />
         </Link>
 
         <Link to="/profil">
@@ -32,9 +40,9 @@ export default function Sidebar() {
           <SidebarIcon icon={<Github_icon size="20" />} text="Github" />
         </a>
 
-        <Link to="/">
+        <div onClick={logout}>
           <SidebarIcon icon={<Quit_icon size="20" />} text="Déconnexion" />
-        </Link>
+        </div>
       </div>
     </nav>
   );

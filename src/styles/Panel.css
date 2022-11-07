@@ -55,10 +55,12 @@
 
 .popup-modal {
   margin: 50px;
-  height: 80%;
   overflow: auto;
+  border: 2px white solid;
+  min-height: 600px;
+  width: 80%;
 }
-.popup-modal p {
+.popup-side p {
   text-align: justify;
   color: white;
   padding: 10px;
@@ -69,7 +71,8 @@
   color: white;
 }
 .popup-modal img {
-  width: 100%;
+  display: block;
+  width: auto;
 }
 
 .popup-background {
