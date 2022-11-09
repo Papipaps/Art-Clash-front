@@ -1,16 +1,35 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Panel.css";
 import Popup from "./Popup";
+import CommentSection from "./CommentSection";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
+import { BsShare } from "react-icons/bs";
 
 export default function Panel({ item }) {
-  console.log(item.imageUrl);
   const [isPopupOpened, setPopupOpen] = useState(false);
-  const handleClick = () => {
+  const fullscreenImg = () => {
     setPopupOpen(!isPopupOpened);
+  };
+  const [isCommentOpend, setCommentOpen] = useState(false);
+  const openComment = () => {
+    setCommentOpen(!isCommentOpend);
+  };
+  const [isToolboxOpen, setToolboxOpen] = useState(false);
+  const openToolbox = () => {
+    setToolboxOpen(true);
+  };
+  const closeToolbox = () => {
+    setToolboxOpen(false);
   };
 
   return (
-    <section className="panel">
+    <section
+      onMouseEnter={openToolbox}
+      onMouseLeave={closeToolbox}
+      className="panel"
+    >
       {isPopupOpened && (
         <Popup
           imageUrl={item.imageUrl}
@@ -19,25 +38,45 @@ export default function Panel({ item }) {
           description={item.description}
         />
       )}
-      <div className="crop">
-        <img onClick={handleClick} className="panel-img" src={item.imageUrl} />
-      </div>
-      <div className="panel-content">
+      <div className="panel-profil-info items-center font-semibold flex gap-3 mx-5 my-2">
+        <div className="profil-picture-frame">
+          <img src={require("../media/images/avatar.jpg")} />
+        </div>
         <p>
-          <span>
-            <img src="./media/location-icn.svg" />
-            <a className="panel-link" href={item.googleMapsUrl}>
-              {item.location}
-            </a>
+          {item.title}{" "}
+          <span className="italic font-light text-gray-500">
+            - {item.createdDate}
           </span>
         </p>
-
-        <p>{item.title}</p>
-        <p>
-          {item.startDate}-{item.endDate ? item.endDate : "En cours"}
-        </p>
-        <p>{item.description}</p>
       </div>
+      <div className="frame">
+        <img
+          onClick={fullscreenImg}
+          className="panel-img"
+          src={require(`../media/images/${item.imageUrl}`)}
+        />
+      </div>
+      {isToolboxOpen && (
+        <ul className="panel-toolbox">
+          <li>
+            <AiOutlineHeart size="25" />
+            <span>0</span>
+          </li>
+          <li>
+            <i>
+              <HiOutlineChatBubbleOvalLeft size="25" onClick={openComment} />
+            </i>
+            <span>0</span>
+          </li>
+          <li>
+            <i>
+              <BsShare size="25" />
+            </i>
+            <span>0</span>
+          </li>
+        </ul>
+      )}
+      {isCommentOpend && <CommentSection setCommentOpen={setCommentOpen} />}
     </section>
   );
 }

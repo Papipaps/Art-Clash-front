@@ -1,73 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins');
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
 
-.crop {
-        width: 600px;
-        height: 300px;
-        overflow: hidden;
-    }
-.uncrop{
-    width: 500px
-}
-.crop img {
-    height: 300px;
-    margin: 0px 0px;
-}
-.panel{
-    /* border: 5px solid blue; */
-    height:300px; 
-    width: 700px;
-    border-radius: 15px;
-    display: flex;
-    margin: 20px 20px;
-    overflow: hidden;
-    box-shadow: 0 5px 10px rgb(173, 173, 173);
+.frame {
+  padding: 0px 20px 5px 20px;
 }
 
-.panel-content{
-    padding: 20px;
-    width: 100%;
-    overflow-y: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+.frame img {
+  border: 1px lightgray solid;
 }
-.panel-content::-webkit-scrollbar{
-    display: none;
-}
-.panel-content p{
-margin: 12px;
-}
-.panel-content img{
-    width: 1em;
+.profil-picture-frame {
+  border-radius: 100%;
+  overflow: hidden;
+  width: 30px;
 }
 
-.popup-modal{ 
-  margin:50px; 
-  height: 80%;
+.panel {
+  background-color: white;
+  width: 500px;
+  border-radius: 15px;
+  margin: 20px 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgb(173, 173, 173);
+}
+
+.panel-content {
+  padding: 20px;
+  width: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.panel-content::-webkit-scrollbar {
+  display: none;
+}
+.panel-content p {
+  margin: 12px;
+}
+.panel-content img {
+  width: 1em;
+}
+
+.panel-toolbox {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px 0;
+}
+.panel-toolbox li {
+  display: flex;
+  align-items: center;
+  height: 25px;
+  gap: 20px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.popup-modal {
+  margin: 50px;
   overflow: auto;
+  border: 2px white solid;
+  min-height: 600px;
+  width: 80%;
 }
-.popup-modal p{
-    text-align: justify;
-    color: white;
-    padding: 10px;
+.popup-side p {
+  text-align: justify;
+  color: white;
+  padding: 10px;
 }
-.popup-modal h3{
-    overflow-wrap: break-word;
-    text-align: justify;
-    color: white; 
-    
+.popup-modal h3 {
+  overflow-wrap: break-word;
+  text-align: justify;
+  color: white;
 }
-.popup-modal img{
-    width:100%; 
+.popup-modal img {
+  display: block;
+  width: auto;
 }
 
-.popup-background{ 
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 2;
-}    
+.popup-background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}

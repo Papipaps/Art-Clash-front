@@ -13,7 +13,7 @@ background-size: cover;
 display: flex;
 justify-content: center;
 align-items: center;
-border: 1px blue solid;
+/* border: 1px blue solid; */
 
 }
 .landing-menu{

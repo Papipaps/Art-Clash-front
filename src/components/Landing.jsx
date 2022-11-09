@@ -6,12 +6,12 @@ export default function Landing() {
       <ul className="landing-menu">
         <h1>BIENVENUE</h1>
         <li>
-          <Link className="link-home" to="/home">
-            Entrer
+          <Link className="link-home" to="/login">
+            Connexion
           </Link>
         </li>
         <li>
-          <Link className="link-minigame" to="/mini-game">
+          <Link className="link-minigame" to="/minigame">
             Accéder aux mini-jeux
           </Link>
         </li>

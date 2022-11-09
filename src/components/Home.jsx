@@ -2,16 +2,13 @@ import Sidebar from "./Sidebar";
 import data from "../mock/data";
 import Panel from "./Panel";
 export default function Home() {
-  console.log("data :" + data);
+  const images = data.map((item) => {
+    return <Panel key={item.id} item={item} />;
+  });
   return (
-    <div
-      className="flex flex-col w-screen place-items-center"
-      style={{ border: "2px solid red" }}
-    >
+    <div className="flex flex-col w-screen place-items-center">
       <Sidebar />
-      {data.map((item) => {
-        return <Panel key={item.id} item={item} />;
-      })}
+      {images}
     </div>
   );
 }
