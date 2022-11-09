@@ -5,6 +5,7 @@ import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
 import { TextField, Select, MenuItem, InputLabel, Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AuthService from "../service/auth-service";
 export const theme = createTheme({
   status: {
     danger: "#e53e3e",
@@ -29,16 +30,16 @@ export default function Register() {
       password: "",
       gender: "unspecified",
       email: "",
-      hobby: [],
+      category: "Illustrator",
     },
 
     onSubmit: (values) => {
-      if (values.hobby.length > 3) {
-        alert("Error");
-      } else {
-        navigate("/home");
-        alert(JSON.stringify(values, null, 2));
-      }
+      const promise = AuthService.register(values);
+      promise.then((response) => {
+        if (response.status === 200) {
+          navigate("/login");
+        }
+      });
     },
   });
 
@@ -101,21 +102,24 @@ export default function Register() {
             </Select>
           </div>
           <div className="register-input">
-            <InputLabel id="skill-selector">Compétence</InputLabel>
-            <MultipleSelect
-              formik={formik}
-              names={[
-                "Illustrators",
-                "Photographers",
-                "Painters",
-                "Tattooists",
-                "Graphic designers",
-                "Textile artists",
-                "Cinematographers",
-                "Sculptors",
-                "Craft artists",
-              ]}
-            />
+            <InputLabel id="skill-selector">Catégorie</InputLabel>
+            <Select
+              labelId="category-selector"
+              id="demo-simple-select"
+              name="category"
+              value={formik.values.category}
+              label="Categorie"
+              onChange={formik.handleChange}
+            >
+              <MenuItem value="Illustrator">Illustrateur/trice</MenuItem>
+              <MenuItem value="Photographer">Photographe</MenuItem>
+              <MenuItem value="Painter">Peintre</MenuItem>
+              <MenuItem value="Tattooist">Tattoueur/Tatoueuse</MenuItem>
+              <MenuItem value="Graphic designer">Graphic designer</MenuItem>
+              <MenuItem value="Textile artist">Couturier/Couturiere</MenuItem>
+              <MenuItem value="Sculptors">Sculteur/Sculteuse</MenuItem>
+              <MenuItem value="Craft artists">Artisan/Artisanne</MenuItem>
+            </Select>
           </div>
           <ThemeProvider theme={theme}>
             <Button
@@ -123,7 +127,8 @@ export default function Register() {
               style={{ border: "1px solid" }}
               color="primary"
             >
-              <button>Submit</button>
+              {" "}
+              Submit
             </Button>
           </ThemeProvider>
           <div className="text-center pt-12 pb-12">

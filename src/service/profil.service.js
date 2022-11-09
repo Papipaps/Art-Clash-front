@@ -3,9 +3,13 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/api/profil/";
 
-export const getPublicContent = async () => {
+const getPublicContent = async () => {
   return await axios.get(API_URL + "getPublicInformation", {
     headers: authHeader(),
     withCredentials: true,
   });
 };
+const ProfileService = {
+  getPublicContent,
+};
+export default ProfileService;

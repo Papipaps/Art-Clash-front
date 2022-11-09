@@ -65,15 +65,19 @@ function App() {
 
 const ProtectedRoute = ({ user, component }) => {
   if (user == null) {
+    console.log("protected to log ");
     return <Navigate to="/login" replace />;
   }
+  console.log("protected to component ");
   return component;
 };
 
 const PublicRoute = ({ user, component }) => {
   if (user != null) {
+    console.log("public to home ");
     return <Navigate to="/home" />;
   }
+  console.log("public to component ");
   return component;
 };
 

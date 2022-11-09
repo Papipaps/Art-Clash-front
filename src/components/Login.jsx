@@ -17,8 +17,10 @@ export default function Login() {
 
     onSubmit: (values) => {
       const promise = AuthService.login(values.username, values.password);
-      promise.then((value) => {
-        if (value.status === 200) {
+      promise.then((response) => {
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        if (response.status === 200) {
           window.location.reload();
         }
       });

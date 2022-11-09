@@ -14,10 +14,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* border-bottom: 2px lightgray solid; */
-  /* border: 1px solid blue; */
 }
 .profil-content-tab button {
+  border-bottom: 1px solid transparent;
+  display: block;
   width: 80%;
   text-align: center;
 }

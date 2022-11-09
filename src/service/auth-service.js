@@ -2,38 +2,26 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
-const register = (username, email, password, gender, category) => {
-  return axios.post(API_URL + "signup", {
-    username,
-    email,
-    password,
-    gender,
-    category,
-  });
+const register = async (values) => {
+  const registerDTO = { ...values };
+  return await axios.post(API_URL + "signup", registerDTO);
 };
 
 const login = async (username, password) => {
-  const response = await axios.post(
-    API_URL + "signin",
-    {
-      username,
-      password,
-    },
-    { withCredentials: true }
-  );
-  if (response.status === 200) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
-  return response;
+  return await axios({
+    method: "post",
+    url: API_URL + "signin",
+    data: { username, password },
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  });
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("userID");
+  localStorage.clear();
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  return localStorage.getItem("access_token");
 };
 
 const AuthService = {

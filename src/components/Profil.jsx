@@ -4,12 +4,12 @@ import Sidebar from "./Sidebar";
 import "../styles/UserProfil.css";
 import GalleryGrid from "./GalleryGrid";
 import AuthService from "../service/auth-service";
-import { getPublicContent } from "../service/profil.service";
+import ProfileService from "../service/profil.service";
 
 let profil = {
   id: "",
-  first_name: "",
-  last_name: "",
+  firstname: "",
+  lastname: "",
   email: "",
   createdDate: "",
   category: "",
@@ -27,9 +27,9 @@ export default function Profil() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const loggedUser = getPublicContent();
-
-    setCurrentProfil({ ...loggedUser });
+    ProfileService.getPublicContent().then((response) => {
+      setCurrentProfil(response.data);
+    });
   }, []);
 
   return (
@@ -61,11 +61,11 @@ export default function Profil() {
                 <div className="flex flex-wrap justify-center">
                   <div className="profil-primary w-full">
                     <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
-                      {currentProfil.anonymous
-                        ? currentProfil.email
-                        : currentProfil.first_name +
+                      {currentProfil.firstname == undefined
+                        ? currentProfil.username
+                        : currentProfil.firstname +
                           " " +
-                          currentProfil.last_name}
+                          currentProfil.lastname}
 
                       <span className="italic text-gray-800 font-light">
                         {" - "} {currentProfil.category}
