@@ -1,4 +1,4 @@
-import { Formik, useFormik } from "formik";
+import { Formik, useFormik, Field } from "formik";
 import { Link } from "react-router-dom";
 import MultipleSelect from "./Multiselect";
 import "../styles/Register.css";
@@ -88,18 +88,19 @@ export default function ProfilEdit() {
                 placeholder="nom"
               />
             </div>
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formik.values.anonymous}
-                  onChange={formik.handleChange}
-                  name="anonyme"
-                />
-              }
-              label="Anonyme ?"
-            />
-
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    defaultChecked={currentProfil.anonymous}
+                    name="anonymous"
+                    onChange={formik.handleChange}
+                    value={true}
+                  />
+                }
+                label="Ne pas afficher votre nom"
+              />
+            </FormGroup>
             <div className="register-input">
               <TextField
                 required

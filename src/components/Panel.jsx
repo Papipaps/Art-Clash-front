@@ -33,14 +33,14 @@ export default function Panel({ item }) {
     >
       {isPopupOpened && (
         <Popup setPopupOpen={setPopupOpen} width={900}>
-          <div className="flex items-center justify-center bg-white w-2/3 ">
+          <div className="flex items-center justify-center bg-black w-2/3 ">
             <img
-              className="h-full"
+              className="block w-auto h-full object-cover"
               src={require(`../media/images/${item.imageUrl}`)}
             />
           </div>
           <div className="popup-side bg-white w-1/3">
-            <div className="h-1/6 overflow-hidden p-4  ">
+            <div className="h-1/6 overflow-hidden p-4">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
             </div>

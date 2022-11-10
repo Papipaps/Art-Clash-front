@@ -2,7 +2,7 @@
   margin: 50px;
   overflow: auto;
   border: 2px white solid;
-  min-height: 600px;
+  min-height: auto;
   width: 80%;
 }
 
