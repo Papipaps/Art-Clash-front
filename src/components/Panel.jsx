@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Panel.css";
+import "../styles/Popup.css";
 import Popup from "./Popup";
 import CommentSection from "./CommentSection";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -26,17 +27,28 @@ export default function Panel({ item }) {
 
   return (
     <section
-      onMouseEnter={openToolbox}
-      onMouseLeave={closeToolbox}
+      // onMouseEnter={openToolbox}
+      // onMouseLeave={closeToolbox}
       className="panel"
     >
       {isPopupOpened && (
-        <Popup
-          imageUrl={item.imageUrl}
-          setPopupOpen={setPopupOpen}
-          title={item.title}
-          description={item.description}
-        />
+        <Popup setPopupOpen={setPopupOpen} width={900}>
+          <div className="flex items-center justify-center bg-white w-2/3 ">
+            <img
+              className="h-full"
+              src={require(`../media/images/${item.imageUrl}`)}
+            />
+          </div>
+          <div className="popup-side bg-white w-1/3">
+            <div className="h-1/6 overflow-hidden p-4  ">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+            <div className="h-5/6  overflow-auto">
+              <CommentSection id={item.id}></CommentSection>
+            </div>
+          </div>
+        </Popup>
       )}
       <div className="panel-profil-info items-center font-semibold flex gap-3 mx-5 my-2">
         <div className="profil-picture-frame">
@@ -56,7 +68,7 @@ export default function Panel({ item }) {
           src={require(`../media/images/${item.imageUrl}`)}
         />
       </div>
-      {isToolboxOpen && (
+      {/* {isToolboxOpen && (
         <ul className="panel-toolbox">
           <li>
             <AiOutlineHeart size="25" />
@@ -64,7 +76,7 @@ export default function Panel({ item }) {
           </li>
           <li>
             <i>
-              <HiOutlineChatBubbleOvalLeft size="25" onClick={openComment} />
+              <HiOutlineChatBubbleOvalLeft size="25"/>
             </i>
             <span>0</span>
           </li>
@@ -75,8 +87,7 @@ export default function Panel({ item }) {
             <span>0</span>
           </li>
         </ul>
-      )}
-      {isCommentOpend && <CommentSection setCommentOpen={setCommentOpen} />}
+      )} */}
     </section>
   );
 }

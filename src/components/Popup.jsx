@@ -1,4 +1,6 @@
-export default function Popup({ imageUrl, setPopupOpen, title, description }) {
+import { Children } from "react";
+
+export default function Popup({ setPopupOpen, children }) {
   return (
     <div
       onClick={() => {
@@ -6,15 +8,7 @@ export default function Popup({ imageUrl, setPopupOpen, title, description }) {
       }}
       className="popup-background"
     >
-      <div className="popup-modal flex">
-        <div className="flex items-center bg-red-700 w-[900px]">
-          <img src={require(`../media/images/${imageUrl}`)} />
-        </div>
-        <div className="popup-side bg-blue-700 w-full">
-          <h3>{title}</h3>
-          <p>{description}</p>
-        </div>
-      </div>
+      <div className="popup-modal flex bg-white rounded-lg">{children}</div>
     </div>
   );
 }
