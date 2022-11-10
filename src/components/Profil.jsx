@@ -5,28 +5,17 @@ import "../styles/UserProfil.css";
 import GalleryGrid from "./GalleryGrid";
 import AuthService from "../service/auth-service";
 import ProfileService from "../service/profil.service";
-
-let profil = {
-  id: "",
-  firstname: "",
-  lastname: "",
-  email: "",
-  createdDate: "",
-  category: "",
-  favColor: "#FFFFFF",
-  private: false,
-  country: "",
-  gender: "",
-  username: "",
-  anonymous: false,
-};
+import profilDTO from "../data/dto/profilDTO";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+let profil = profilDTO;
 
 export default function Profil() {
   const [currentProfil, setCurrentProfil] = useState(profil);
+  const navigate = new useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
     ProfileService.getPublicContent().then((response) => {
       setCurrentProfil(response.data);
     });
@@ -78,16 +67,20 @@ export default function Profil() {
                   <div className="w-full lg:w-9/12 px-4">
                     <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                       {currentProfil.description
-                        ? "Bio :" + currentProfil.description
+                        ? "Bio : " + currentProfil.description
                         : "Cet utilisateur n'a pas de bio.. 😅"}
                     </p>
-                    {/* <Button
-                      onClick={resetProfil}
-                      style={{ border: "2px solid", width: "200px" }}
-                      color="primary"
-                    >
-                      <p className="font-bold">Change Profil</p>
-                    </Button> */}
+                    {
+                      <Button
+                        onClick={() => {
+                          navigate("/profil-edit");
+                        }}
+                        style={{ border: "2px solid", width: "200px" }}
+                        color="primary"
+                      >
+                        <p className="font-bold">Edit Profil</p>
+                      </Button>
+                    }
                   </div>
                 </div>
               </div>

@@ -16,6 +16,7 @@ import MiniGame from "./components/MiniGame";
 import Gallery from "./components/Gallery";
 import ErrorPage from "./components/ErrorPage";
 import AuthService from "./service/auth-service";
+import ProfilEdit from "./components/Profil.Edit";
 function App() {
   // const [user, setUser] = useState(null);
   // useEffect(() => {
@@ -44,6 +45,10 @@ function App() {
       <Route
         path="/profil"
         element={<ProtectedRoute user={user} component={<Profil />} />}
+      />
+      <Route
+        path="/profil-edit"
+        element={<ProtectedRoute user={user} component={<ProfilEdit />} />}
       />
       <Route path="/minigame" element={<MiniGame />} />
       <Route
