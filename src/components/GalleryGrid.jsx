@@ -1,11 +1,23 @@
-const tab = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+import image from "../media/images/Jojo2.png";
+import data from "../mock/data";
+// const tab = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 export default function GalleryGrid({ width, height, images }) {
   return (
-    // <div className={`border border-red-700 h-[${height}px] px-4 my-4`}>
-    <section className="grid grid-cols-4 p-4">
-      {tab.map((item, index) => {
+    <section
+      style={{ gridTemplateColumns: "repeat(auto-fill,350px)" }}
+      className="grid w-full my-4 gap-1   justify-center   "
+    >
+      {data.map((item) => {
+        console.log(`../media/images/${item.imageUrl}`);
         return (
-          <p className="border border-black h-[400px] w-auto" key={index}></p>
+          <div className=" border w-[350px] h-[400px] ">
+            <img
+              className="object-cover overflow-hidden h-full"
+              src={require(`../media/images/${item.imageUrl}`)}
+              alt=""
+              srcset=""
+            />
+          </div>
         );
       })}
     </section>

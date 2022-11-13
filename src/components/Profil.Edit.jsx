@@ -156,6 +156,17 @@ export default function ProfilEdit() {
               {" "}
               MODIFIER
             </Button>
+            <Button
+              onClick={() => {
+                navigate("/profil");
+              }}
+              type="button"
+              style={{ border: "1px solid" }}
+              color="secondary"
+            >
+              {" "}
+              Retour
+            </Button>
           </form>
         )}
       </div>{" "}
