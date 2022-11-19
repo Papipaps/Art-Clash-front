@@ -7,7 +7,7 @@ export default function Popup({ setPopupOpen, children, width, height }) {
       className="popup-background"
     >
       <div
-        className={`popup-modal flex bg-white rounded-lg w-[${width}px] h-[${height}px]`}
+        className={`popup-modal flex bg-white rounded-lg p-4 w-[${width}px] h-[${height}px]`}
       >
         {children}
       </div>

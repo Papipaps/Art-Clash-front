@@ -34,12 +34,15 @@ export default function Register() {
     },
 
     onSubmit: (values) => {
-      const promise = AuthService.register(values);
-      promise.then((response) => {
-        if (response.status === 200) {
-          navigate("/login");
-        }
-      });
+      //const promise = AuthService.register(values);
+      //promise.then((response) => {
+      // if (response.status === 200) {
+      alert(
+        `Salut ${values.username} ! Tu ne peux pas te créer de compte !\nUtilise "admin" et "password" comme identifiant pour accéder au site ! \nBonne visite ! 😊`
+      );
+      navigate("/login");
+      //  }
+      // });
     },
   });
 

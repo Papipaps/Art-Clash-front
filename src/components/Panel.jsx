@@ -13,17 +13,6 @@ export default function Panel({ item }) {
   const fullscreenImg = () => {
     setPopupOpen(!isPopupOpened);
   };
-  const [isCommentOpend, setCommentOpen] = useState(false);
-  const openComment = () => {
-    setCommentOpen(!isCommentOpend);
-  };
-  const [isToolboxOpen, setToolboxOpen] = useState(false);
-  const openToolbox = () => {
-    setToolboxOpen(true);
-  };
-  const closeToolbox = () => {
-    setToolboxOpen(false);
-  };
 
   return (
     <section
@@ -68,26 +57,6 @@ export default function Panel({ item }) {
           src={require(`../media/images/${item.imageUrl}`)}
         />
       </div>
-      {/* {isToolboxOpen && (
-        <ul className="panel-toolbox">
-          <li>
-            <AiOutlineHeart size="25" />
-            <span>0</span>
-          </li>
-          <li>
-            <i>
-              <HiOutlineChatBubbleOvalLeft size="25"/>
-            </i>
-            <span>0</span>
-          </li>
-          <li>
-            <i>
-              <BsShare size="25" />
-            </i>
-            <span>0</span>
-          </li>
-        </ul>
-      )} */}
     </section>
   );
 }

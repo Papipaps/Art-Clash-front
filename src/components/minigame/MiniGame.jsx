@@ -31,7 +31,7 @@ export default function MiniGame() {
   };
 
   useEffect(() => {
-    console.log(loggedUser);
+    // console.log(loggedUser);
     setLoggedUser(JSON.parse(AuthService.getMockUser()));
     if (loggedUser) {
       setPlayer((prevPlayer) => ({

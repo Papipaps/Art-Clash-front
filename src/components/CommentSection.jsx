@@ -43,7 +43,7 @@ function stringAvatar(name) {
 }
 
 export default function CommentSection({ setCommentOpen, id }) {
-  console.log(comments_mock);
+  // console.log(comments_mock);
   // const [comments, setComments] = useState(comments_mock);
   //useEffect(()=>{
   //  CommentService.getCommentByPostId(id).then((response)=>{

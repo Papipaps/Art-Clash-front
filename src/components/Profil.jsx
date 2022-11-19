@@ -55,15 +55,27 @@ export default function Profil() {
       {isLoaded && (
         <div className="bg-slate-50 flex justify-center  w-full mb-4 h-screen">
           {isPopupOpen && (
-            <Popup width={"300"} height={"700"}>
-              <button
-                className="relative left-0 top-0 w-10 h-10 border-black border"
-                onClick={() => {
-                  toggleAbout(isPopupOpen);
-                }}
-              >
-                X
-              </button>{" "}
+            <Popup>
+              <div className="flex justify-evenly gap-4">
+                <button
+                  className="relative left-0 top-0 w-10 h-10 border-black border"
+                  onClick={() => {
+                    toggleAbout(isPopupOpen);
+                  }}
+                >
+                  X
+                </button>{" "}
+                <p>
+                  Suivez moi sur insta !!! 😙
+                  <a
+                    className="underline underline-offset-2 font-boldbold"
+                    href="http://instagram.com/drw_paps"
+                    target="_blank"
+                  >
+                    @Drw_Paps
+                  </a>
+                </p>
+              </div>
             </Popup>
           )}
           <div className="ml-16 flex flex-col min-w-fit break-words bg-white h-full w-full   ">

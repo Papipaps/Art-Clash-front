@@ -56,7 +56,7 @@ export default function Canvas() {
   });
   const navigate = useNavigate();
   const handleColorChange = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     const color = e.target.style.backgroundColor || e.target.value;
     setState({
       brush: {
