@@ -18,7 +18,7 @@
 .profil-content-tab button {
   border-bottom: 1px solid transparent;
   display: block;
-  width: 80%;
+  width: 60%;
   text-align: center;
 }
 .profil-content-tab-items :hover {
@@ -26,5 +26,5 @@
   cursor: pointer;
 }
 .tab-active-items {
-  border-bottom: 1px solid cyan;
+  /* border-bottom: 1px solid cyan; */
 }

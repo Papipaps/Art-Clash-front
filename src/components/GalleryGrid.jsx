@@ -1,4 +1,3 @@
-import image from "../media/images/Jojo2.png";
 import data from "../mock/data";
 // const tab = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 export default function GalleryGrid({ width, height, images }) {
@@ -8,7 +7,6 @@ export default function GalleryGrid({ width, height, images }) {
       className="grid w-full my-4 gap-1   justify-center   "
     >
       {data.map((item) => {
-        console.log(`../media/images/${item.imageUrl}`);
         return (
           <div className=" border w-[350px] h-[400px] ">
             <img

@@ -20,18 +20,20 @@ import ProfileService from "../service/profil.service";
 import profilDTO from "../data/dto/profilDTO";
 import { useEffect } from "react";
 import { useState } from "react";
+import data from "../mock/mock-profils";
 
 export default function ProfilEdit() {
   const navigate = useNavigate();
   const [currentProfil, setCurrentProfil] = useState(profilDTO);
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    ProfileService.getIProfileInformation().then((response) => {
-      if (response.status === 200) {
-        setCurrentProfil(response.data);
-        setIsLoaded(true);
-      }
-    });
+    setCurrentProfil(data);
+    setIsLoaded(true);
+    // ProfileService.getIProfileInformation().then((response) => {
+    //   if (response.status === 200) {
+    //     setCurrentProfil(response.data);
+    //     setIsLoaded(true);
+    //   }
   }, []);
 
   const validate = (values) => {

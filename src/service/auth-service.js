@@ -1,4 +1,5 @@
 import axios from "axios";
+import mockProfils from "../mock/mock-profils";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -23,12 +24,16 @@ const logout = () => {
 const getCurrentUser = () => {
   return localStorage.getItem("access_token");
 };
+const getMockUser = () => {
+  return localStorage.getItem("mock-user");
+};
 
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  getMockUser,
 };
 
 export default AuthService;

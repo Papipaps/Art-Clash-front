@@ -8,21 +8,19 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Profil from "./components/Profil";
+import Profil2 from "./components/Profil2";
 import Home from "./components/Home";
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import MiniGame from "./components/MiniGame";
+import MiniGame from "./components/minigame/MiniGame";
 import Gallery from "./components/Gallery";
 import ErrorPage from "./components/ErrorPage";
 import AuthService from "./service/auth-service";
 import ProfilEdit from "./components/Profil.Edit";
 function App() {
-  // const [user, setUser] = useState(null);
-  // useEffect(() => {
-  //   setUser(AuthService.getCurrentUser());
-  // }, []);
-  const user = AuthService.getCurrentUser();
+  // const user = AuthService.getCurrentUser();
+  const user = AuthService.getMockUser();
   return (
     <Routes>
       <Route

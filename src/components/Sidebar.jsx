@@ -19,7 +19,7 @@ export default function Sidebar() {
   }
   return (
     <nav>
-      <div className="fixed place-content-evenly top-0 left-0 min-h-screen w-16 flex flex-col bg-white shadow-lg shadow-yellow-400 ">
+      <div className="fixed place-content-evenly top-0 left-0 min-h-screen w-16 flex flex-col bg-white border border-yellow-400 ">
         <Link to="/home">
           <SidebarIcon icon={<Home_icon size="18" />} text="Accueil" />
         </Link>
