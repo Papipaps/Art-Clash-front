@@ -21,7 +21,11 @@ function App() {
   return (
     <Routes>
       <Route
-        path="/login"
+        path={"/"}
+        element={<PublicRoute user={user} component={<Login />} />}
+      />
+      <Route
+        path={"/login"}
         element={<PublicRoute user={user} component={<Login />} />}
       />
       <Route
