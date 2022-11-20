@@ -27,11 +27,12 @@ export default function MiniGame() {
   };
 
   const before = () => {
-    setPageIndex((prevPage) => (prevPage = prevPage - 1));
+    if (!loggedUser && pageIndex == 1) {
+      setPageIndex((prevPage) => (prevPage = prevPage - 1));
+    }
   };
 
   useEffect(() => {
-    // console.log(loggedUser);
     setLoggedUser(JSON.parse(AuthService.getMockUser()));
     if (loggedUser) {
       setPlayer((prevPlayer) => ({
@@ -40,7 +41,7 @@ export default function MiniGame() {
       }));
       setPageIndex(1);
     }
-  }, []);
+  }, [pageIndex]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -15,7 +15,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   function logout() {
     AuthService.logout();
-    window.location.reload();
+    navigate("/login");
   }
   return (
     <nav>

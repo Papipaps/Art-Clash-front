@@ -3,9 +3,9 @@ import { Link, redirect, useNavigate } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./Register";
-import image from "../media/images/Dessin (8).png";
+import image from "../media/images/Dessin (1).png";
 import AuthService from "../service/auth-service";
-import data from "../mock/mock-profils";
+import mockProfils from "../mock/mock-profils";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,19 +17,23 @@ export default function Login() {
     },
 
     onSubmit: (values) => {
+      // const promise = AuthService.login(values.username, values.password);
+      // promise.then((response) => {
+      //   localStorage.setItem("access_token", response.data.access_token);
+      //   localStorage.setItem("refresh_token", response.data.refresh_token);
+      //   if (response.status === 200) {
+      //     window.location.reload();
+      //   }
+      // });
       if (values.username == "admin" && values.password == "password") {
-        localStorage.setItem("mock-user", JSON.stringify(data[0], null, 2));
-        window.location.reload();
+        localStorage.setItem(
+          "mock-user",
+          JSON.stringify(mockProfils[0], null, 2)
+        );
+        navigate("/home");
       }
     },
-    //const promise = AuthService.login(values.username, values.password);
-    //promise.then((response) => {
-    //  localStorage.setItem("access_token", response.data.access_token);
-    //  localStorage.setItem("refresh_token", response.data.refresh_token);
-    //  if (response.status === 200) {
-    //    window.location.reload();
-    //  }
-    //});
+    // },
   });
   return (
     <div className="w-full flex flex-wrap">
@@ -87,17 +91,6 @@ export default function Login() {
               <Link className="underline font-semibold" to="/register">
                 Cliquez ici !
               </Link>
-            </p>
-            <p>ou</p>
-            <p>
-              Accedez aux{" "}
-              <Link
-                to="/minigame"
-                className="font-semibold underline-offset-2 underline"
-              >
-                mini-jeux
-              </Link>{" "}
-              !
             </p>
           </div>
         </div>

@@ -14,64 +14,56 @@ import Gallery from "./components/Gallery";
 import ErrorPage from "./components/ErrorPage";
 import AuthService from "./service/auth-service";
 import ProfilEdit from "./components/Profil.Edit";
+import MiniGame from "./components/minigame/MiniGame";
 import UnderConstruction from "./components/UnderConstruction";
+import { useEffect, useState } from "react";
 function App() {
   // const user = AuthService.getCurrentUser();
-  const user = AuthService.getMockUser();
+  console.log("APP JS");
   return (
     <Routes>
-      <Route
-        path={"/"}
-        element={<PublicRoute user={user} component={<Login />} />}
-      />
-      <Route
-        path={"/login"}
-        element={<PublicRoute user={user} component={<Login />} />}
-      />
+      <Route path="/login" element={<PublicRoute component={<Login />} />} />
       <Route
         path="/register"
-        element={<PublicRoute user={user} component={<Register />} />}
+        element={<PublicRoute component={<Register />} />}
       />
 
-      <Route
-        path="/home"
-        element={<ProtectedRoute user={user} component={<Home />} />}
-      />
+      <Route path="/home" element={<ProtectedRoute component={<Home />} />} />
       <Route
         path="/profil"
-        element={<ProtectedRoute user={user} component={<Profil />} />}
+        element={<ProtectedRoute component={<Profil />} />}
       />
       <Route
         path="/profil-edit"
-        element={<ProtectedRoute user={user} component={<ProfilEdit />} />}
+        element={<ProtectedRoute component={<ProfilEdit />} />}
       />
       <Route path="/minigame" element={<UnderConstruction />} />
       <Route
         path="/gallery"
-        element={<ProtectedRoute user={user} component={<Gallery />} />}
+        element={<ProtectedRoute component={<Gallery />} />}
       />
 
       <Route
         path="*"
-        element={<ProtectedRoute user={user} component={<ErrorPage />} />}
-      />
-      <Route
-        path="/logout"
-        element={<PublicRoute user={user} component={<Landing />} />}
+        element={<ProtectedRoute component={<Navigate to="/login" />} />}
       />
     </Routes>
   );
 }
 
-const ProtectedRoute = ({ user, component }) => {
+const ProtectedRoute = ({ component }) => {
+  const user = AuthService.getMockUser();
   if (user == null) {
+    console.log("blocked");
     return <Navigate to="/login" replace />;
   }
   return component;
 };
 
-const PublicRoute = ({ user, component }) => {
+const PublicRoute = ({ component }) => {
+  const user = AuthService.getMockUser();
   if (user != null) {
+    console.log("logged -> redirected to home");
     return <Navigate to="/home" />;
   }
   return component;
