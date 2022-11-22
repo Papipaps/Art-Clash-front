@@ -55,7 +55,7 @@ export default function Profil() {
       {isLoaded && (
         <div className="bg-slate-50 flex justify-center  w-full mb-4 h-screen">
           {isPopupOpen && (
-            <Popup>
+            <Popup setPopupOpen={setPopupOpen}>
               <div className="flex justify-evenly gap-4">
                 <button
                   className="relative left-0 top-0 w-10 h-10 border-black border"

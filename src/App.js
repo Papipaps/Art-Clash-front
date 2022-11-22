@@ -18,8 +18,6 @@ import MiniGame from "./components/minigame/MiniGame";
 import UnderConstruction from "./components/UnderConstruction";
 import { useEffect, useState } from "react";
 function App() {
-  // const user = AuthService.getCurrentUser();
-  console.log("APP JS");
   return (
     <Routes>
       <Route path="/login" element={<PublicRoute component={<Login />} />} />
@@ -37,7 +35,9 @@ function App() {
         path="/profil-edit"
         element={<ProtectedRoute component={<ProfilEdit />} />}
       />
-      <Route path="/minigame" element={<UnderConstruction />} />
+      <Route path="/minigame" element={<MiniGame />} />
+      <Route path="/minigame/FreeDrawing" element={<UnderConstruction />} />
+      <Route path="/minigame/GuessGame" element={<UnderConstruction />} />
       <Route
         path="/gallery"
         element={<ProtectedRoute component={<Gallery />} />}
@@ -54,7 +54,6 @@ function App() {
 const ProtectedRoute = ({ component }) => {
   const user = AuthService.getMockUser();
   if (user == null) {
-    console.log("blocked");
     return <Navigate to="/login" replace />;
   }
   return component;
@@ -63,7 +62,6 @@ const ProtectedRoute = ({ component }) => {
 const PublicRoute = ({ component }) => {
   const user = AuthService.getMockUser();
   if (user != null) {
-    console.log("logged -> redirected to home");
     return <Navigate to="/home" />;
   }
   return component;

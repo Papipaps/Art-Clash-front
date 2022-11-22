@@ -15,16 +15,17 @@ export default function Panel({ item }) {
   };
 
   return (
-    <section
-      // onMouseEnter={openToolbox}
-      // onMouseLeave={closeToolbox}
-      className="panel"
-    >
+    <section className="panel">
       {isPopupOpened && (
-        <Popup setPopupOpen={setPopupOpen} width={900}>
+        <Popup
+          className="transition-all duration-300 ease-in-out"
+          setPopupOpen={setPopupOpen}
+          height={"95%"}
+          width={"auto"}
+        >
           <div className="flex items-center justify-center bg-black w-2/3 ">
             <img
-              className="block w-auto h-full object-cover"
+              className="block w-auto max-h-full object-cover"
               src={require(`../media/images/${item.imageUrl}`)}
             />
           </div>
@@ -34,7 +35,7 @@ export default function Panel({ item }) {
               <p>{item.description}</p>
             </div>
             <div className="h-5/6  overflow-auto">
-              <CommentSection id={item.id}></CommentSection>
+              <CommentSection postId={item.id}></CommentSection>
             </div>
           </div>
         </Popup>

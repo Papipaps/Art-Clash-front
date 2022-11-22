@@ -92,6 +92,13 @@ export default function Login() {
                 Cliquez ici !
               </Link>
             </p>
+            ou
+            <p>
+              Accédez aux mini-jeux en{" "}
+              <Link className="underline font-semibold" to="/minigame">
+                cliquant là !
+              </Link>
+            </p>
           </div>
         </div>
       </div>

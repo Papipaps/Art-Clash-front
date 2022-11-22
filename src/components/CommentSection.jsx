@@ -8,8 +8,8 @@ import {
   Avatar,
 } from "@mui/material";
 import comments_mock from "../mock/mock-comments";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
+import mockComments from "../mock/mock-comments";
 // import CommentService from "../service/comment-service";
 // import commentDTO from "../data/dto/commentDTO";
 
@@ -42,56 +42,52 @@ function stringAvatar(name) {
   };
 }
 
-export default function CommentSection({ setCommentOpen, id }) {
-  // console.log(comments_mock);
-  // const [comments, setComments] = useState(comments_mock);
-  //useEffect(()=>{
-  //  CommentService.getCommentByPostId(id).then((response)=>{
-  //      if(response.status===200){
-  //        setComments(response.data);
-  //      }
-  //  })
-  //},[])
+export default function CommentSection({ postId, id }) {
+  const [filteredComments, setFilteredComments] = useState([]);
+
+  useLayoutEffect(() => {
+    setFilteredComments(
+      mockComments.filter(function (comment) {
+        return comment.postId == postId;
+      })
+    );
+  }, []);
+
   return (
-    <div>
-      <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-        {comments_mock.map((comment) => {
-          return (
-            <>
-              <ListItem
-                onBlur={() => console.log("oui")}
-                alignItems="flex-start"
-              >
-                <ListItemAvatar>
-                  <Avatar
-                    {...stringAvatar(comment.ownerFullName)}
-                    src="/static/images/avatar/1.jpg"
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={comment.description}
-                  secondary={
-                    <>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                        fontWeight={700}
-                      >
-                        {comment.ownerFullName}
-                      </Typography>
-                      {" — "}
-                      <span> {comment.createdDate} </span>
-                    </>
-                  }
+    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+      {filteredComments.map((comment) => {
+        return (
+          <div key={comment.id}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar
+                  {...stringAvatar(comment.ownerFullName)}
+                  src="/static/images/avatar/1.jpg"
                 />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-            </>
-          );
-        })}
-      </List>
-    </div>
+              </ListItemAvatar>
+              <ListItemText
+                primary={comment.description}
+                secondary={
+                  <>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight={700}
+                    >
+                      {comment.ownerFullName}
+                    </Typography>
+                    {" — "}
+                    <span> {comment.createdDate} </span>
+                  </>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </div>
+        );
+      })}
+    </List>
   );
 }
