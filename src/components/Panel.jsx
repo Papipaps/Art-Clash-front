@@ -9,19 +9,17 @@ import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { BsShare } from "react-icons/bs";
 
 export default function Panel({ item }) {
-  const [isPopupOpened, setPopupOpen] = useState(false);
-  const fullscreenImg = () => {
-    setPopupOpen(!isPopupOpened);
-  };
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
   return (
     <section className="panel">
-      {isPopupOpened && (
+      {isPopupOpen && (
         <Popup
           className="transition-all duration-300 ease-in-out"
           setPopupOpen={setPopupOpen}
           height={"95%"}
           width={"auto"}
+          isExitable={true}
         >
           <div className="flex items-center justify-center bg-black w-2/3 ">
             <img
@@ -53,7 +51,7 @@ export default function Panel({ item }) {
       </div>
       <div className="frame">
         <img
-          onClick={fullscreenImg}
+          onClick={() => setPopupOpen(true)}
           className="panel-img"
           src={require(`../media/images/${item.imageUrl}`)}
         />

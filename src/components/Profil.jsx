@@ -11,6 +11,8 @@ import ProfileService from "../service/profil.service";
 import profilDTO from "../data/dto/profilDTO";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { BiEdit } from "react-icons/bi";
+import { GrContactInfo } from "react-icons/gr";
 import data from "../mock/mock-profils";
 import defaultavatar from "../media/images/avatar.jpg";
 import Popup from "./Popup";
@@ -55,16 +57,8 @@ export default function Profil() {
       {isLoaded && (
         <div className="bg-slate-50 flex justify-center  w-full mb-4 h-screen">
           {isPopupOpen && (
-            <Popup setPopupOpen={setPopupOpen}>
-              <div className="flex justify-evenly gap-4">
-                <button
-                  className="relative left-0 top-0 w-10 h-10 border-black border"
-                  onClick={() => {
-                    toggleAbout(isPopupOpen);
-                  }}
-                >
-                  X
-                </button>{" "}
+            <Popup setPopupOpen={setPopupOpen} isExitable={true}>
+              <div className="flex justify-evenly gap-4 p-4">
                 <p>
                   Suivez moi sur insta !!! 😙
                   <a
@@ -102,33 +96,27 @@ export default function Profil() {
               </div>
             </div>
             {/* PROFIL CONNECT */}
-            <div className="w-full   text-center flex justify-center gap-12  px-12 py-6">
-              <p className="mb-4  w-[700px] max-h-[150px] overflow-hidden self-center text-justify  ">
+            <div className="w-full gap-2    first-letter:text-center flex justify-center   px-12 py-6">
+              <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
                 {currentProfil.description
                   ? "Bio : " + currentProfil.description
                   : "Cet utilisateur n'a pas de bio.. 😅"}
               </p>
-              <Button
-                className="relative right-0 top-0 h-[50px] w-[100px]"
-                onClick={toggleAbout}
-                style={{ border: "2px solid" }}
-                color="secondary"
-              >
-                <p className="font-bold">A propos</p>
-              </Button>
+              <span className="  max-h-[150px] flex-col flex justify-evenly">
+                <Button className="p-4" onClick={toggleAbout} color="primary">
+                  <GrContactInfo size={30} />
+                </Button>
+                <Button
+                  className="p-4"
+                  onClick={() => {
+                    navigate("/profil-edit");
+                  }}
+                  color="primary"
+                >
+                  <BiEdit size={30} />
+                </Button>
+              </span>
             </div>
-            <span className="flex justify-center gap-[300px]  ">
-              <Button
-                className="h-[50px] w-[300px]"
-                onClick={() => {
-                  navigate("/profil-edit");
-                }}
-                style={{ border: "2px solid" }}
-                color="primary"
-              >
-                <p className="font-bold">Modifier votre profil</p>
-              </Button>
-            </span>
             {/* PROFIL TAB CONTENT */}
             <div className="profil-content-tab  relative flex justify-around">
               <div

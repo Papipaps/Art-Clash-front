@@ -17,6 +17,9 @@ import ProfilEdit from "./components/Profil.Edit";
 import MiniGame from "./components/minigame/MiniGame";
 import UnderConstruction from "./components/UnderConstruction";
 import { useEffect, useState } from "react";
+import FreeDrawing from "./components/minigame/freedrawing.component";
+import GuessGame from "./components/minigame/guessgame.component";
+import Lobby from "./components/minigame/Lobby";
 function App() {
   return (
     <Routes>
@@ -36,8 +39,9 @@ function App() {
         element={<ProtectedRoute component={<ProfilEdit />} />}
       />
       <Route path="/minigame" element={<MiniGame />} />
-      <Route path="/minigame/FreeDrawing" element={<UnderConstruction />} />
       <Route path="/minigame/GuessGame" element={<UnderConstruction />} />
+      <Route path="/minigame/FreeDrawing" element={<UnderConstruction />} />
+      {/* <Route path="/minigame/Lobby/:gameid" element={<Lobby />} /> */}
       <Route
         path="/gallery"
         element={<ProtectedRoute component={<Gallery />} />}

@@ -1,4 +1,12 @@
 /* MINI GAME CANVAS */
+.player-item {
+  background-color: #dddddd;
+  padding: 0.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  width: 100%;
+  overflow-x: hidden;
+}
 .canvas-right,
 .canvas-left {
   display: flex;

@@ -1,20 +1,29 @@
 import { useRef, useEffect } from "react";
 
-export default function Popup({ setPopupOpen, children, width, height }) {
+export default function Popup({
+  setPopupOpen,
+  children,
+  width,
+  height,
+  isExitable,
+}) {
   const handleClick = () => setPopupOpen(false);
   const wrapperRef = useRef(null);
   useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.keyCode === 27 || !wrapperRef.current.contains(event.target)) {
+    const handleExit = (event) => {
+      if (
+        isExitable &&
+        (event.keyCode === 27 || !wrapperRef.current.contains(event.target))
+      ) {
         handleClick();
       }
     };
-    document.addEventListener("mousedown", handleEsc);
-    window.addEventListener("keydown", handleEsc);
+    document.addEventListener("mousedown", handleExit);
+    window.addEventListener("keydown", handleExit);
 
     return () => {
-      document.removeEventListener("mousedown", handleEsc);
-      window.removeEventListener("keydown", handleEsc);
+      document.removeEventListener("mousedown", handleExit);
+      window.removeEventListener("keydown", handleExit);
     };
   }, []);
   return (

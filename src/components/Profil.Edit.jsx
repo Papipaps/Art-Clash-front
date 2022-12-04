@@ -51,125 +51,136 @@ export default function ProfilEdit() {
     enableReinitialize: true,
     validate,
     onSubmit: (values) => {
-      const promise = ProfileService.updateProfile(values);
-      promise.then((response) => {
-        if (response.status === 200) {
-          navigate("/profil");
-        }
-      });
+      // const promise = ProfileService.updateProfile(values);
+      // promise.then((response) => {
+      //   if (response.status === 200) {
+      //     navigate("/profil");
+      //   }
+      // });
     },
   });
 
   return (
-    <div className=" w-screen h-screen">
+    <div className=" w-screen h-screen bg-slate-200">
       <div className="h-full flex justify-center items-center">
         {isLoaded && (
-          <form
-            onSubmit={formik.handleSubmit}
-            className=" bg-white rounded-3xl p-10 flex flex-col absolute right-80"
-          >
-            <div className="register-input">
-              <TextField
-                required
-                className="register-input"
-                id="firstname"
-                label="Prénom"
-                onChange={formik.handleChange}
-                value={formik.values.firstname}
-                placeholder="Prenom"
-              />
-            </div>
-            <div className="register-input">
-              <TextField
-                required
-                className="register-input"
-                id="lastname"
-                label="Nom"
-                onChange={formik.handleChange}
-                value={formik.values.lastname}
-                placeholder="nom"
-              />
-            </div>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={currentProfil.anonymous}
-                    name="anonymous"
-                    onChange={formik.handleChange}
-                    value={true}
-                  />
-                }
-                label="Ne pas afficher votre nom"
-              />
-            </FormGroup>
-            <div className="register-input">
-              <TextField
-                required
-                className="register-input"
-                id="description"
-                label="Description"
-                onChange={formik.handleChange}
-                value={formik.values.description}
-                placeholder="Ajouter une biographie à votre profile !"
-              />
-            </div>
+          <>
+            <form
+              onSubmit={formik.handleSubmit}
+              className=" bg-white rounded-3xl shadow-md drop-shadow p-10 flex flex-col"
+            >
+              <h1 className="text-center my-4 font-bold text-xl">
+                {" "}
+                Modifiez votre profil
+              </h1>
+              <div className="register-input">
+                <TextField
+                  required
+                  className="register-input"
+                  id="firstname"
+                  label="Prénom"
+                  onChange={formik.handleChange}
+                  value={formik.values.firstname}
+                  placeholder="Prenom"
+                />
+              </div>
+              <div className="register-input">
+                <TextField
+                  required
+                  className="register-input"
+                  id="lastname"
+                  label="Nom"
+                  onChange={formik.handleChange}
+                  value={formik.values.lastname}
+                  placeholder="nom"
+                />
+              </div>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      defaultChecked={currentProfil.anonymous}
+                      name="anonymous"
+                      onChange={formik.handleChange}
+                      value={true}
+                    />
+                  }
+                  label="Ne pas afficher votre nom"
+                />
+              </FormGroup>
+              <div className="register-input">
+                <TextField
+                  required
+                  className="register-input"
+                  id="description"
+                  label="Description"
+                  onChange={formik.handleChange}
+                  value={formik.values.description}
+                  placeholder="Ajouter une biographie à votre profile !"
+                />
+              </div>
 
-            <div className="register-input flex flex-col justify-center">
-              <InputLabel id="gender-selector">Genre</InputLabel>
-              <Select
-                labelId="gender-selector"
-                id="demo-simple-select"
-                name="gender"
-                value={formik.values.gender}
-                label="Genre"
-                onChange={formik.handleChange}
+              <div className="register-input flex flex-col justify-center">
+                <InputLabel id="gender-selector">Genre</InputLabel>
+                <Select
+                  labelId="gender-selector"
+                  id="demo-simple-select"
+                  name="gender"
+                  value={formik.values.gender}
+                  label="Genre"
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value="unspecified">Non spécifié</MenuItem>
+                  <MenuItem value="Femme">Femme</MenuItem>
+                  <MenuItem value="Homme">Homme</MenuItem>
+                </Select>
+              </div>
+              <div className="register-input">
+                <InputLabel id="skill-selector">Catégorie</InputLabel>
+                <Select
+                  labelId="category-selector"
+                  id="demo-simple-select"
+                  name="category"
+                  value={formik.values.category}
+                  label="Categorie"
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value="Illustrator">Illustrateur/trice</MenuItem>
+                  <MenuItem value="Photographer">Photographe</MenuItem>
+                  <MenuItem value="Painter">Peintre</MenuItem>
+                  <MenuItem value="Tattooist">Tattoueur/Tatoueuse</MenuItem>
+                  <MenuItem value="Graphic designer">Graphic designer</MenuItem>
+                  <MenuItem value="Textile artist">
+                    Couturier/Couturiere
+                  </MenuItem>
+                  <MenuItem value="Sculptors">Sculteur/Sculteuse</MenuItem>
+                  <MenuItem value="Craft artists">Artisan/Artisanne</MenuItem>
+                </Select>
+              </div>
+              <Button
+                style={{ border: "1px solid" }}
+                color="primary"
+                onClick={() => {
+                  alert("API non connecté, retour en arriere !");
+                  navigate("/home");
+                }}
               >
-                <MenuItem value="unspecified">Non spécifié</MenuItem>
-                <MenuItem value="Femme">Femme</MenuItem>
-                <MenuItem value="Homme">Homme</MenuItem>
-              </Select>
-            </div>
-            <div className="register-input">
-              <InputLabel id="skill-selector">Catégorie</InputLabel>
-              <Select
-                labelId="category-selector"
-                id="demo-simple-select"
-                name="category"
-                value={formik.values.category}
-                label="Categorie"
-                onChange={formik.handleChange}
+                {" "}
+                MODIFIER
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/profil");
+                }}
+                type="button"
+                style={{ border: "1px solid" }}
+                color="secondary"
               >
-                <MenuItem value="Illustrator">Illustrateur/trice</MenuItem>
-                <MenuItem value="Photographer">Photographe</MenuItem>
-                <MenuItem value="Painter">Peintre</MenuItem>
-                <MenuItem value="Tattooist">Tattoueur/Tatoueuse</MenuItem>
-                <MenuItem value="Graphic designer">Graphic designer</MenuItem>
-                <MenuItem value="Textile artist">Couturier/Couturiere</MenuItem>
-                <MenuItem value="Sculptors">Sculteur/Sculteuse</MenuItem>
-                <MenuItem value="Craft artists">Artisan/Artisanne</MenuItem>
-              </Select>
-            </div>
-            <Button
-              type="submit"
-              style={{ border: "1px solid" }}
-              color="primary"
-            >
-              {" "}
-              MODIFIER
-            </Button>
-            <Button
-              onClick={() => {
-                navigate("/profil");
-              }}
-              type="button"
-              style={{ border: "1px solid" }}
-              color="secondary"
-            >
-              {" "}
-              Retour
-            </Button>
-          </form>
+                {" "}
+                Retour
+              </Button>
+            </form>
+          </>
         )}
       </div>{" "}
     </div>

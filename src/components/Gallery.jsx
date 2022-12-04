@@ -4,26 +4,17 @@ import Sidebar from "./Sidebar";
 
 export default function Gallery() {
   return (
-    <>
+    <div className="gallery border border-black flex w-screen h-fit ml-16 ">
       <Sidebar />
-      <div className="gallery flex w-screen px-56">
-        <Masonry columns={3} spacing={2}>
-          {data.map((item, index) => (
-            <div key={index}>
-              <img
-                src={require(`../media/images/${item.imageUrl}`)}
-                loading="lazy"
-                style={{
-                  borderBottomLeftRadius: 4,
-                  borderBottomRightRadius: 4,
-                  display: "block",
-                  width: "100%",
-                }}
-              />
-            </div>
-          ))}
-        </Masonry>
-      </div>
-    </>
+      <Masonry columns={4} spacing={2}>
+        {data.map((item, index) => (
+          <img
+            src={require(`../media/images/${item.imageUrl}`)}
+            alt=""
+            srcset=""
+          />
+        ))}
+      </Masonry>{" "}
+    </div>
   );
 }

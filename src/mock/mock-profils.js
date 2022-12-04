@@ -4,7 +4,8 @@ export default [
     firstname: "Jordan",
     lastname: "Bohringer",
     email: "jordanbohringer@yopmail.com",
-    description: "Salut à toi !",
+    description:
+      "Salut et bienvenue sur mon site portfolio ! J'ajouterai au fur et a mesure des fonctionnalités au cours de mon apprentissage de ReactJS et du développement web en général. Merci de votre visite !",
     createdDate: "9/11/2022",
     category: "Illustrators",
     favColor: "#59f8aa",
