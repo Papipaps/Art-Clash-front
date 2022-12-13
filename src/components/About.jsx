@@ -1,7 +1,11 @@
-export default function About() {
+export default function About({ text }) {
   return (
-    <>
-      <h1>ABOUT</h1>
-    </>
+    <div>
+      {text ? (
+        <p>{text}</p>
+      ) : (
+        <p>Cet utilisateur n'a pas complété cette section. (le petit filou)</p>
+      )}
+    </div>
   );
 }

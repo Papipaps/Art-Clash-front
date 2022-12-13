@@ -2,6 +2,7 @@ import Sidebar from "./Sidebar";
 import data from "../mock/data";
 import Panel from "./Panel";
 import TrendingNav from "./TrendingNav";
+import { useState } from "react";
 
 export default function Home() {
   const images = data.map((item) => {

@@ -12,6 +12,9 @@ const profilDTO = {
   gender: "",
   username: "",
   anonymous: false,
+  about: "",
+  isError: false,
+  errorMessage: "",
 };
 
 export default profilDTO;

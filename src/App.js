@@ -35,6 +35,10 @@ function App() {
         element={<ProtectedRoute component={<Profil />} />}
       />
       <Route
+        path="/profil/:username"
+        element={<ProtectedRoute component={<Profil />} />}
+      />
+      <Route
         path="/profil-edit"
         element={<ProtectedRoute component={<ProfilEdit />} />}
       />
@@ -56,16 +60,20 @@ function App() {
 }
 
 const ProtectedRoute = ({ component }) => {
-  const user = AuthService.getMockUser();
+  // console.log("prot");
+  const user = AuthService.getCurrentUser();
   if (user == null) {
+    // console.log("prot 2");
     return <Navigate to="/login" replace />;
   }
   return component;
 };
 
 const PublicRoute = ({ component }) => {
-  const user = AuthService.getMockUser();
+  // console.log("public");
+  const user = AuthService.getCurrentUser();
   if (user != null) {
+    // console.log("public 2");
     return <Navigate to="/home" />;
   }
   return component;

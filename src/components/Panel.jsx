@@ -21,7 +21,7 @@ export default function Panel({ item }) {
           width={"auto"}
           isExitable={true}
         >
-          <div className="flex items-center justify-center bg-black w-2/3 ">
+          <div className="flex items-center justify-center bg-white w-2/3 ">
             <img
               className="block w-auto max-h-full object-cover"
               src={require(`../media/images/${item.imageUrl}`)}

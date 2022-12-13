@@ -17,21 +17,19 @@ export default function Login() {
     },
 
     onSubmit: (values) => {
-      // const promise = AuthService.login(values.username, values.password);
-      // promise.then((response) => {
-      //   localStorage.setItem("access_token", response.data.access_token);
-      //   localStorage.setItem("refresh_token", response.data.refresh_token);
-      //   if (response.status === 200) {
-      //     window.location.reload();
-      //   }
-      // });
-      if (values.username == "admin" && values.password == "password") {
-        localStorage.setItem(
-          "mock-user",
-          JSON.stringify(mockProfils[0], null, 2)
-        );
-        navigate("/home");
-      }
+      const promise = AuthService.login(values.username, values.password);
+      promise.then((response) => {
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        if (response.status === 200) {
+          navigate("/home");
+        }
+      });
+      // if (values.username == "admin" && values.password == "password") {
+      //   localStorage.setItem(
+      //     "mock-user",
+      //     JSON.stringify(mockProfils[0], null, 2)
+      //   );
     },
     // },
   });

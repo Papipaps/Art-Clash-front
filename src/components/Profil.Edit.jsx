@@ -21,20 +21,26 @@ import profilDTO from "../data/dto/profilDTO";
 import { useEffect } from "react";
 import { useState } from "react";
 import data from "../mock/mock-profils";
+import axios from "axios";
 
 export default function ProfilEdit() {
   const navigate = useNavigate();
   const [currentProfil, setCurrentProfil] = useState(profilDTO);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [countryList, setCountryList] = useState([]);
   useEffect(() => {
-    setCurrentProfil(data);
-    setIsLoaded(true);
-    // ProfileService.getIProfileInformation().then((response) => {
-    //   if (response.status === 200) {
-    //     setCurrentProfil(response.data);
-    //     setIsLoaded(true);
-    //   }
-  }, []);
+    // setCurrentProfil(data);
+    // setIsLoaded(true);
+    ProfileService.getIProfileInformation(currentProfil.username).then(
+      (response) => {
+        if (response.status === 200) {
+          setCurrentProfil(response.data);
+          setIsLoaded(true);
+        }
+      },
+      []
+    );
+  });
 
   const validate = (values) => {
     const errors = {};
@@ -44,6 +50,28 @@ export default function ProfilEdit() {
     return errors;
   };
 
+  // const handleCountryChange = (e) => {
+  //   const value = e.currentTarget.value;
+  //   if (value.length >= 2) {
+  //     axios
+  //       .get(`https://restcountries.com/v3.1/name/${value}`)
+  //       .then((res) => {
+  //         let countryList = res.data.slice(0.5);
+  //         countryList = countryList.map(
+  //           (country) => country.translations.fra.common
+  //         );
+  //         setCountryList(countryList);
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }
+  // };
+
+  // const getCountries = () => {
+  //   return countryList.map((country, index) => {
+  //     <option key={index} value={country} />;
+  //   });
+  // };
+
   const formik = useFormik({
     initialValues: {
       ...currentProfil,
@@ -51,12 +79,12 @@ export default function ProfilEdit() {
     enableReinitialize: true,
     validate,
     onSubmit: (values) => {
-      // const promise = ProfileService.updateProfile(values);
-      // promise.then((response) => {
-      //   if (response.status === 200) {
-      //     navigate("/profil");
-      //   }
-      // });
+      const promise = ProfileService.updateProfile(values);
+      promise.then((response) => {
+        if (response.status === 200) {
+          navigate("/profil");
+        }
+      });
     },
   });
 
@@ -75,7 +103,6 @@ export default function ProfilEdit() {
               </h1>
               <div className="register-input">
                 <TextField
-                  required
                   className="register-input"
                   id="firstname"
                   label="Prénom"
@@ -86,7 +113,6 @@ export default function ProfilEdit() {
               </div>
               <div className="register-input">
                 <TextField
-                  required
                   className="register-input"
                   id="lastname"
                   label="Nom"
@@ -110,7 +136,6 @@ export default function ProfilEdit() {
               </FormGroup>
               <div className="register-input">
                 <TextField
-                  required
                   className="register-input"
                   id="description"
                   label="Description"
@@ -119,10 +144,19 @@ export default function ProfilEdit() {
                   placeholder="Ajouter une biographie à votre profile !"
                 />
               </div>
+              {/* <div className="register-input">
+                <FormControl fullWidth>
+                  <input list="country-list" name="country">
+                    Pays
+                  </input>
+                  <datalist id="country-list">{getCountries}</datalist>
+                </FormControl> 
+              </div> */}
 
               <div className="register-input flex flex-col justify-center">
-                <InputLabel id="gender-selector">Genre</InputLabel>
+                <InputLabel id="gender-selector">Genre*</InputLabel>
                 <Select
+                  required
                   labelId="gender-selector"
                   id="demo-simple-select"
                   name="gender"
@@ -136,8 +170,9 @@ export default function ProfilEdit() {
                 </Select>
               </div>
               <div className="register-input">
-                <InputLabel id="skill-selector">Catégorie</InputLabel>
+                <InputLabel id="skill-selector">Catégorie*</InputLabel>
                 <Select
+                  required
                   labelId="category-selector"
                   id="demo-simple-select"
                   name="category"
@@ -160,13 +195,10 @@ export default function ProfilEdit() {
               <Button
                 style={{ border: "1px solid" }}
                 color="primary"
-                onClick={() => {
-                  alert("API non connecté, retour en arriere !");
-                  navigate("/home");
-                }}
+                onClick={formik.handleSubmit}
               >
                 {" "}
-                MODIFIER
+                ENREGISTRER
               </Button>
               <Button
                 onClick={() => {
