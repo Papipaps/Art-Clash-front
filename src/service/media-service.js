@@ -13,6 +13,11 @@ const getMediaById = async (id) => {
     headers: authHeader(),
   });
 };
+const getMetadataById = async (id) => {
+  return await axios.get(API_URL + `downloadMetadata/${id}`, {
+    headers: authHeader(),
+  });
+};
 const getThumbnail = async (id) => {
   return await axios.get(API_URL + `getThumbnail/${id}`, {
     headers: authHeader(),
@@ -39,5 +44,6 @@ const MediaService = {
   getMediaByOwner,
   uploadMedia,
   deleteMediaById,
+  getMetadataById
 };
 export default MediaService;

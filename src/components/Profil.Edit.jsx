@@ -40,7 +40,7 @@ export default function ProfilEdit() {
       },
       []
     );
-  });
+  },[]);
 
   const validate = (values) => {
     const errors = {};

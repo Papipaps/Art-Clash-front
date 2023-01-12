@@ -132,7 +132,7 @@ export default function Profil() {
           {isCurrentUser && (
             <button
               onClick={openUploadDialog}
-              className="fixed border bottom-0 right-0 m-16 bg-white p-6 rounded-full drop-shadow shadow-xl"
+              className="fixed z-10 border bottom-0 right-0 m-16 bg-white p-6 rounded-full drop-shadow shadow-xl"
             >
               <HiPlus size={26} />
             </button>
@@ -140,7 +140,7 @@ export default function Profil() {
           <div className="ml-16 flex flex-col min-w-fit break-words bg-white h-full w-full   ">
             {/* PROFIL INFO CARD */}
             <div
-              style={{ backgroundImage: `url(${defaultBackgroundImage})` }}
+              style={{ backgroundSize:"cover", backgroundImage: `url(${viewedProfil.backgroundId ? `http://localhost:8080/api/media/download/${viewedProfil.backgroundId}`: defaultBackgroundImage})` }}
               className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
             >
               <div className="flex flex-wrap justify-center text-white">

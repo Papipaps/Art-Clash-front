@@ -1,17 +1,17 @@
 import axios from "axios";
 import mockProfils from "../mock/mock-profils";
+import { LOGIN_CONTEXT, SIGNUP_CONTEXT } from "../utils/Paths";
 
-const API_URL = "http://localhost:8080/api/auth/";
 
 const register = async (values) => {
   const registerDTO = { ...values };
-  return await axios.post(API_URL + "signup", registerDTO);
+  return await axios.post(SIGNUP_CONTEXT, registerDTO);
 };
 
 const login = async (username, password) => {
   return await axios({
     method: "post",
-    url: API_URL + "signin",
+    url: LOGIN_CONTEXT,
     data: { username, password },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   });

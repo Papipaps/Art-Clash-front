@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import data from "../mock/data";
+import Popup from "./Popup";
+import MediaDTO from "../data/dto/mediaDTO";
 import MediaService from "../service/media-service";
-import ProfileService from "../service/profil.service";
-// const tab = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+import CommentSection from "./CommentSection";
+
 export default function GalleryGrid({ profil, reload }) {
   const [mediaIds, setMediaIds] = useState([]);
+  const [isPopupLoading, setPopupLoading] = useState(false);
+  const [popupInfo, setPopUpInfo] = useState(MediaDTO);
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
-  const classText = "";
   useEffect(() => {
     if (profil) {
       MediaService.getMediaByOwner(profil).then((res) => {
@@ -15,25 +18,63 @@ export default function GalleryGrid({ profil, reload }) {
       });
     }
   }, [profil, reload]);
+
+  function fullScreenImage(id) {
+    MediaService.getMetadataById(id).then((response) => {
+      setPopUpInfo(response.data);
+      setPopupOpen(true);
+      setPopupLoading(false); 
+    }); 
+  }
   return (
+    <div> 
+          {isPopupOpen && <Popup
+            className="transition-all duration-300 ease-in-out"
+            setPopupOpen={setPopupOpen}
+            height={"95%"}
+            width={"auto"}
+            isExitable={true}
+          >
+            <div className="flex items-center justify-center bg-white w-2/3 ">
+              <img
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src="https://unsplash.com/fr/photos/sNHtz720O-s";
+                }} 
+                className="block w-auto max-h-full object-cover"
+                src={`http://localhost:8080/api/media/download/${popupInfo.id}`}
+              />
+            </div>
+            <div className="popup-side bg-white w-1/3">
+              <div className="h-1/6 overflow-hidden p-4">
+                <h3>{popupInfo.title}</h3>
+                <p>{popupInfo.description}</p>
+              </div>
+              <div className="h-5/6  overflow-auto">
+                <CommentSection postId={popupInfo.id}></CommentSection>
+              </div>
+            </div>
+          </Popup> }
     <section
       style={{ gridTemplateColumns: "repeat(auto-fill,350px)" }}
       className="grid w-full my-4 gap-1   justify-center   "
-    >
-      {mediaIds.map((item) => {
+      >
+      {mediaIds.map((mediaId,i) => {
         return (
           <div
-            key={item}
-            className="relative flex justify-center items-center border w-[350px] h-[400px] "
+          key={i}
+          className="relative flex justify-center items-center border w-[350px] h-[400px] "
+          onClick={()=>fullScreenImage(mediaId)}
           >
             <img
               className="object-cover overflow-hidden h-full"
-              src={`http://localhost:8080/api/media/getThumbnail/${item}`}
-            />
+              src={`http://localhost:8080/api/media/getThumbnail/${mediaId}`}
+              />
           </div>
         );
       })}
     </section>
+      </div>
     // </div>
   );
 }
