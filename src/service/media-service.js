@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_CONTEXT } from "../utils/Paths";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/media/";
+const API_URL = `${API_CONTEXT}/media/`;
 
 const deleteMediaById = async (id) => {
   return await axios.get(API_URL + `delete/${id}`, {
@@ -9,7 +10,7 @@ const deleteMediaById = async (id) => {
   });
 };
 const getMediaById = async (id) => {
-  return await axios.get(API_URL + `download/${id}`, {
+  return await axios.get(API_URL + `downloadFromDB/${id}`, {
     headers: authHeader(),
   });
 };
@@ -31,7 +32,7 @@ const getMediaByOwner = async (id) => {
 const uploadMedia = async (formData) => {
   return await axios({
     method: "post",
-    url: API_URL + `upload`,
+    url: API_URL + `uploadToDB`,
     data: formData,
     headers: authHeader(),
   }).then(function (response) {

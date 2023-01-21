@@ -22,6 +22,8 @@ import authHeader from "../service/auth-header";
 import MediaService from "../service/media-service";
 import { isFocusable } from "@testing-library/user-event/dist/utils";
 import About from "./About";
+import SocialService from "../service/social-service";
+import { API_CONTEXT } from "../utils/Paths";
 
 export default function Profil() {
   const [currentProfil, setCurrentProfil] = useState(profilDTO);
@@ -42,21 +44,12 @@ export default function Profil() {
   };
 
   const toggleAbout = () => {
-    setPopupOpen((prev) => !prev);
+    SocialService.getFollowers(viewedProfil.id).then((response)=>{
+      console.log(response.data)
+      setPopupOpen((prev) => !prev);
+    })
   };
 
-  const toggleTabComponent = (prop) => {
-    const component = prop.type.name;
-    if (component === "GalleryGrid") {
-      setTabComponent(<GalleryGrid reload={reload} profil={viewedProfil.id} />);
-    } else if (component === "Project") {
-      setTabComponent(<Project />);
-    } else if (component === "Community") {
-      setTabComponent(<Community />);
-    } else if (component === "Contact") {
-      setTabComponent(<Contact />);
-    }
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -140,7 +133,7 @@ export default function Profil() {
           <div className="ml-16 flex flex-col min-w-fit break-words bg-white h-full w-full   ">
             {/* PROFIL INFO CARD */}
             <div
-              style={{ backgroundSize:"cover", backgroundImage: `url(${viewedProfil.backgroundId ? `http://localhost:8080/api/media/download/${viewedProfil.backgroundId}`: defaultBackgroundImage})` }}
+              style={{ backgroundSize:"cover", backgroundImage: `url(${viewedProfil.backgroundId ? `${API_CONTEXT}/media/download/${viewedProfil.backgroundId}`: defaultBackgroundImage})` }}
               className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
             >
               <div className="flex flex-wrap justify-center text-white">
@@ -199,7 +192,7 @@ export default function Profil() {
               <div className={`profil-content-tab-items  `}>
                 <button
                   onClick={() => {
-                    toggleTabComponent(<GalleryGrid />);
+                    setTabComponent(<GalleryGrid />);
                   }}
                 >
                   {" "}
@@ -209,7 +202,7 @@ export default function Profil() {
               <div className={`profil-content-tab-items`}>
                 <button
                   onClick={() => {
-                    toggleTabComponent(<Project />);
+                    setTabComponent(<Project />);
                   }}
                 >
                   {" "}
@@ -220,7 +213,7 @@ export default function Profil() {
               <div className={`profil-content-tab-items `}>
                 <button
                   onClick={() => {
-                    toggleTabComponent(<Community />);
+                    setTabComponent(<Community profile={viewedProfil} />);
                   }}
                 >
                   {" "}
@@ -230,7 +223,7 @@ export default function Profil() {
               <div className={`profil-content-tab-items `}>
                 <button
                   onClick={() => {
-                    toggleTabComponent(<Contact />);
+                    setTabComponent(<Contact />);
                   }}
                 >
                   {" "}

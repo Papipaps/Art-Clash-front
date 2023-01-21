@@ -4,9 +4,12 @@ import Popup from "./Popup";
 import MediaDTO from "../data/dto/mediaDTO";
 import MediaService from "../service/media-service";
 import CommentSection from "./CommentSection";
+import axios from "axios";
+import { API_CONTEXT } from "../utils/Paths";
 
 export default function GalleryGrid({ profil, reload }) {
   const [mediaIds, setMediaIds] = useState([]);
+  const [imageData, setImageData] = useState("");
   const [isPopupLoading, setPopupLoading] = useState(false);
   const [popupInfo, setPopUpInfo] = useState(MediaDTO);
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -42,7 +45,7 @@ export default function GalleryGrid({ profil, reload }) {
                   currentTarget.src="https://unsplash.com/fr/photos/sNHtz720O-s";
                 }} 
                 className="block w-auto max-h-full object-cover"
-                src={`http://localhost:8080/api/media/download/${popupInfo.id}`}
+                src={`${API_CONTEXT}/media/downloadFromDB/${popupInfo.id}`}
               />
             </div>
             <div className="popup-side bg-white w-1/3">
@@ -60,6 +63,10 @@ export default function GalleryGrid({ profil, reload }) {
       className="grid w-full my-4 gap-1   justify-center   "
       >
       {mediaIds.map((mediaId,i) => {
+        // axios.get(`http://localhost:8080/api/media/downloadFromDB/${mediaId}`).then((response)=>{
+        //   console.log(response.data)
+        //   setImageData(imageData);
+        // })
         return (
           <div
           key={i}
@@ -68,8 +75,7 @@ export default function GalleryGrid({ profil, reload }) {
           >
             <img
               className="object-cover overflow-hidden h-full"
-              src={`http://localhost:8080/api/media/getThumbnail/${mediaId}`}
-              />
+              src={`${API_CONTEXT}/api/media/downloadFromDB/${mediaId}`} alt="image"/>
           </div>
         );
       })}

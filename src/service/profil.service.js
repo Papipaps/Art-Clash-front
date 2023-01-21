@@ -1,7 +1,9 @@
 import axios from "axios";
+import { API_CONTEXT } from "../utils/Paths";
 import authHeader from "./auth-header";
+import AuthService from "./auth-service";
 
-const API_URL = "http://localhost:8080/api/profil/";
+const API_URL = `${API_CONTEXT}/profil/`;
 
 const getPublicContent = async (username) => {
   return await axios.get(

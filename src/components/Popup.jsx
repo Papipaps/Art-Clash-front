@@ -6,8 +6,13 @@ export default function Popup({
   width,
   height,
   isExitable,
+  onComponentExited
 }) {
-  const handleClick = () => setPopupOpen(false);
+  const handleClickOut = () => {
+    setPopupOpen(false)
+    onComponentExited();
+  };
+
   const wrapperRef = useRef(null);
   useEffect(() => {
     const handleExit = (event) => {
@@ -15,7 +20,7 @@ export default function Popup({
         isExitable &&
         (event.keyCode === 27 || !wrapperRef.current.contains(event.target))
       ) {
-        handleClick();
+        handleClickOut();
       }
     };
     document.addEventListener("mousedown", handleExit);
