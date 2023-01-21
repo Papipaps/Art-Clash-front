@@ -6,20 +6,14 @@ import {
   Route,
 } from "react-router-dom";
 import Profil from "./components/Profil";
-import Home from "./components/Home";
-import Landing from "./components/Landing";
+import Home from "./components/Home"; 
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Gallery from "./components/Gallery";
-import ErrorPage from "./components/ErrorPage";
+import Gallery from "./components/Gallery"; 
 import AuthService from "./service/auth-service";
 import ProfilEdit from "./components/Profil.Edit";
 import MiniGame from "./components/minigame/MiniGame";
-import UnderConstruction from "./components/UnderConstruction";
-import { useEffect, useState } from "react";
-import FreeDrawing from "./components/minigame/freedrawing.component";
-import GuessGame from "./components/minigame/guessgame.component";
-import Lobby from "./components/minigame/Lobby";
+import UnderConstruction from "./components/UnderConstruction"; 
 function App() {
   return (
     <Routes>
