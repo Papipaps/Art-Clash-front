@@ -28,14 +28,10 @@ export default function Sidebar() {
           <SidebarIcon icon={<Profil_icon size="20" />} text="Profil" />
         </Link>
 
-        <Link to="/gallery">
-          <SidebarIcon icon={<Gallery_icon size="20" />} text="Gallerie" />
-        </Link>
-
-        <Link to="/minigame">
-          <SidebarIcon icon={<Minigame_icon size="20" />} text="Mini-Jeux" />
-        </Link>
-
+        <Link to="/clash">
+          <SidebarIcon icon={<Gallery_icon size="20" />} text="Clash" />
+        </Link> 
+        
         <a href="https://github.com/Papipaps" target="_blank">
           <SidebarIcon icon={<Github_icon size="20" />} text="Github" />
         </a>

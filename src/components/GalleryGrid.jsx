@@ -1,86 +1,202 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import Popup from "./Popup";
-import MediaDTO from "../data/dto/mediaDTO";
 import MediaService from "../service/media-service";
+import PostService from "../service/post-service";
 import CommentSection from "./CommentSection";
-import axios from "axios";
 import { API_CONTEXT } from "../utils/Paths";
+import postDTO from "../data/dto/postDTO";
+import { CircularProgress } from "@mui/material";
+import { HiPlus } from "react-icons/hi";
+import { useForm } from "react-hook-form";
+import { useDropzone } from "react-dropzone";
+import {
+  CustomFormButton,
+  CustomFormContainer,
+  CustomInputText,
+  CustomTextAreaInput,
+} from "./form/form-components";
+import Dropzone from "react-dropzone";
 
-export default function GalleryGrid({ profil, reload }) {
-  const [mediaIds, setMediaIds] = useState([]);
-  const [imageData, setImageData] = useState("");
-  const [isPopupLoading, setPopupLoading] = useState(false);
-  const [popupInfo, setPopUpInfo] = useState(MediaDTO);
+export default function GalleryGrid({ profile, isCurrentUser }) {
+  const [isUploadDialogOpen, setUploadDialog] = useState(false);
+
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const [fileName, setFileName] = useState("");
+  const [uploadPending, setUploadPending] = useState(false);
+  const [uploadedMediaId, setUploadedMediaId] = useState("");
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (profil) {
-      MediaService.getMediaByOwner(profil).then((res) => {
-        setMediaIds(res.data);
+    loadMorePosts();
+  }, [page]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    const listenToScroll = () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = winScroll / height;
+      if (scrolled >= 1 && (page < totalPage - 1 || page === 0)) {
+        setPage((p) => p + 1);
+      }
+    };
+    window.addEventListener("scroll", listenToScroll);
+    return () => {
+      window.removeEventListener("scroll", listenToScroll);
+    };
+  }, [page]);
+
+  const openUploadDialog = () => {
+    setUploadDialog((prev) => !prev);
+  };
+
+  function onSubmit(data) {
+    console.log("submitting...", data);
+    if (uploadPending && data.title.length > 0) {
+      PostService.createPost({
+        ...data,
+        mediaId: uploadedMediaId,
+      }).then((res) => {
+        setUploadPending(false);
+        loadMorePosts();
+        setUploadDialog(false);
       });
     }
-  }, [profil, reload]);
-
-  function fullScreenImage(id) {
-    MediaService.getMetadataById(id).then((response) => {
-      setPopUpInfo(response.data);
-      setPopupOpen(true);
-      setPopupLoading(false); 
-    }); 
   }
+
+  function onFileUpload(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log("attempting submitting file.... alreadyPending ? ",uploadPending);
+    if (uploadPending) {
+      console.log("file pending, attempting deletion... ");
+      MediaService.deleteMediaById(uploadedMediaId).then(() => {
+        console.log("successfully deleted");
+      });
+    }
+    MediaService.uploadMedia(formData).then((response) => {
+          console.log("successfully uploaded with id : ",response.data.payload);
+          setUploadedMediaId(response.data.payload);
+          setUploadPending(true);
+        });
+  }
+
+  function loadMorePosts() {
+    PostService.getMediaPostsByUser(profile.id, page).then((response) => {
+      setPosts([...posts, ...response.data.content]);
+      setTotalPage(response.data.totalPages);
+      setIsLoading(false);
+    });
+  }
+
   return (
-    <div> 
-          {isPopupOpen && <Popup
-            className="transition-all duration-300 ease-in-out"
-            setPopupOpen={setPopupOpen}
-            height={"95%"}
-            width={"auto"}
-            isExitable={true}
-          >
-            <div className="flex items-center justify-center bg-white w-2/3 ">
-              <img
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null; // prevents looping
-                  currentTarget.src="https://unsplash.com/fr/photos/sNHtz720O-s";
-                }} 
-                className="block w-auto max-h-full object-cover"
-                src={`${API_CONTEXT}/media/downloadFromDB/${popupInfo.id}`}
+    <div>
+      {isCurrentUser && (
+        <button
+          onClick={openUploadDialog}
+          className="fixed z-10 border bottom-0 right-0 m-16 bg-white p-6 rounded-full drop-shadow shadow-xl"
+        >
+          <HiPlus size={26} />
+        </button>
+      )}
+
+      {isUploadDialogOpen && (
+        <Popup
+          width={"fit-content"}
+          onComponentExited={() => {
+            console.log("exited");
+            if (uploadPending) {
+              console.log("deleting");
+              MediaService.deleteMediaById(uploadedMediaId);
+            }
+          }}
+          setPopupOpen={setUploadDialog}
+          isExitable={true}
+        >
+          <section className="w-[450px]">
+            <div className=" aspect-square bg-slate-400">
+              <Dropzone
+                onDrop={(acceptedFiles) => onFileUpload(acceptedFiles[0])}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <div
+                    className="bg-slate-200 w-full h-full cursor-pointer"
+                    {...getRootProps()}
+                  >
+                    <input {...getInputProps()} />
+                    {uploadPending ? (
+                      <p>Image pret a l'envoie</p>
+                    ) : (
+                      <p>
+                        Glissez une image ou cliquez ici pour en selectionner
+                        une !
+                      </p>
+                    )}
+                  </div>
+                )}
+              </Dropzone>
+            </div>
+            <form className="p-6" onSubmit={handleSubmit(onSubmit)}>
+              <CustomFormButton
+                register={register}
+                label={"Upload"}
+                color={"orange"}
+                buttonType={"submit"}
               />
-            </div>
-            <div className="popup-side bg-white w-1/3">
-              <div className="h-1/6 overflow-hidden p-4">
-                <h3>{popupInfo.title}</h3>
-                <p>{popupInfo.description}</p>
-              </div>
-              <div className="h-5/6  overflow-auto">
-                <CommentSection postId={popupInfo.id}></CommentSection>
-              </div>
-            </div>
-          </Popup> }
-    <section
-      style={{ gridTemplateColumns: "repeat(auto-fill,350px)" }}
-      className="grid w-full my-4 gap-1   justify-center   "
-      >
-      {mediaIds.map((mediaId,i) => {
-        // axios.get(`http://localhost:8080/api/media/downloadFromDB/${mediaId}`).then((response)=>{
-        //   console.log(response.data)
-        //   setImageData(imageData);
-        // })
-        return (
-          <div
-          key={i}
-          className="relative flex justify-center items-center border w-[350px] h-[400px] "
-          onClick={()=>fullScreenImage(mediaId)}
+              <CustomInputText
+                label={"Titre"}
+                labelKey={"title"}
+                register={register}
+              />
+              <CustomTextAreaInput
+                label={"Description"}
+                labelKey={"content"}
+                register={register}
+              />
+            </form>
+          </section>
+        </Popup>
+      )}
+
+      {!isLoading ? (
+        <div className="relative">
+          <section
+            style={{ gridTemplateColumns: "repeat(auto-fill,390px)" }}
+            className="grid gap-1 sm:w-full justify-center mt-4"
           >
-            <img
-              className="object-cover overflow-hidden h-full"
-              src={`${API_CONTEXT}/api/media/downloadFromDB/${mediaId}`} alt="image"/>
-          </div>
-        );
-      })}
-    </section>
-      </div>
+            {posts.map((post, i) => {
+              return (
+                <div
+                  key={i}
+                  className="mh-[390px] relative flex justify-center items-center cursor-pointer "
+                >
+                  <img
+                    className="object-cover overflow-hidden h-full"
+                    src={`${API_CONTEXT}/media/downloadFromDB/${post.mediaId}`}
+                    alt="image"
+                  />
+                </div>
+              );
+            })}
+          </section>
+        </div>
+      ) : (
+        <div className="fixed top-1/2 left-1/2 bg-slate-500 bg-opacity-25">
+          <CircularProgress />
+        </div>
+      )}
+    </div>
     // </div>
   );
 }

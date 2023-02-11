@@ -6,11 +6,11 @@ export default function Popup({
   width,
   height,
   isExitable,
-  onComponentExited
+  onComponentExited=()=>{}
 }) {
   const handleClickOut = () => {
-    setPopupOpen(false)
     onComponentExited();
+    setPopupOpen(false)
   };
 
   const wrapperRef = useRef(null);

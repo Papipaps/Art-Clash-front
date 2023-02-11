@@ -6,8 +6,15 @@ import { theme } from "./Register";
 import image from "../media/images/Dessin (1).png";
 import AuthService from "../service/auth-service";
 import mockProfils from "../mock/mock-profils";
+import Sidebar from "./SidebarCopy";
+import ProfileService from "../service/profil.service";
+import { useContext } from "react";
+import { UserContext } from "../utils/userContext";
 
 export default function Login() {
+ 
+  const {setUser} = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -21,9 +28,10 @@ export default function Login() {
       promise.then((response) => {
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
-        if (response.status === 200) {
-          navigate("/home");
-        }
+        ProfileService.getIProfileInformation("")
+        .then((response)=>{setUser(response.data)})
+        navigate("/home");
+        
       });
       // if (values.username == "admin" && values.password == "password") {
       //   localStorage.setItem(
@@ -33,7 +41,7 @@ export default function Login() {
     },
     // },
   });
-  return (
+  return ( 
     <div className="w-full flex flex-wrap">
       <div className="w-full md:w-1/2 flex flex-col shadow-xl z-10">
         <div className="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">

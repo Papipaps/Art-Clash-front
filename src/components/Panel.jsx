@@ -1,39 +1,50 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import "../styles/Panel.css";
 import "../styles/Popup.css";
 import Popup from "./Popup";
 import CommentSection from "./CommentSection";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
-import { BsShare } from "react-icons/bs";
+import { API_CONTEXT } from "../utils/Paths";
 
 export default function Panel({ item }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
-
   return (
     <section className="panel">
       {isPopupOpen && (
         <Popup
-          className="transition-all duration-300 ease-in-out"
+          className="panel-popup "
           setPopupOpen={setPopupOpen}
-          height={"95%"}
-          width={"auto"}
+          width={"900px"}
           isExitable={true}
         >
-          <div className="flex items-center justify-center bg-white w-2/3 ">
-            <img
-              className="block w-auto max-h-full object-cover"
-              src={require(`../media/images/${item.imageUrl}`)}
-            />
-          </div>
-          <div className="popup-side bg-white w-1/3">
-            <div className="h-1/6 overflow-hidden p-4">
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+          <div className="w-full min-w-fit h-full"> 
+            <div
+              onMouseEnter={(e)=>{
+                const element = document.getElementById("description");
+                element.className="absolute bottom-0 left-0 w-full h-[150px] bg-black bg-opacity-75 text-white"
+              }}
+              onMouseLeave={(e)=>{
+                const element = document.getElementById("description");
+                element.className="hidden"
+            
+              }}
+              className=" relative flex items-center justify-center">
+              {item.mediaId && (
+                <div>
+                  <div className="hidden" name="description" id="description">
+                    Description
+                  </div>
+                  <img
+                    className="block w-auto max-h-full object-cover"
+                    src={`${API_CONTEXT}/media/downloadFromDB/${item.mediaId}`}
+                    />
+                </div>
+              )}
             </div>
-            <div className="h-5/6  overflow-auto">
-              <CommentSection postId={item.id}></CommentSection>
+
+            <div className="popup-bottom h-full">
+              <div className="">
+                <CommentSection postId={item.id}></CommentSection>
+              </div>
             </div>
           </div>
         </Popup>
@@ -52,8 +63,8 @@ export default function Panel({ item }) {
       <div className="frame">
         <img
           onClick={() => setPopupOpen(true)}
-          className="panel-img"
-          src={require(`../media/images/${item.imageUrl}`)}
+          className="h-full"
+          src={`${API_CONTEXT}/media/downloadFromDB/${item.mediaId}`}
         />
       </div>
     </section>

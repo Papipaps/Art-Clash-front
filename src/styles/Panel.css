@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins");
-
-.frame {
-  padding: 0px 20px;
-}
-
-.frame img {
-  border: 1px lightgray solid;
-}
+ 
 .profil-picture-frame {
   border-radius: 100%;
   overflow: hidden;
@@ -16,10 +9,14 @@
 .panel {
   background-color: white;
   width: 500px;
-  border-radius: 15px;
-  margin: 20px 20px;
+  border-radius: 5px; 
   overflow: hidden;
-  box-shadow: 0 5px 5px rgb(207, 207, 207);
+  box-shadow: 0 5px 10px 1px rgb(180, 177, 177);
+  margin: 20px 0;
+
+}
+.panel-popup{
+  background-color: transparent !important;
 }
 
 .panel-content {
