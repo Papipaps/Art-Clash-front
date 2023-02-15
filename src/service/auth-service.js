@@ -37,7 +37,7 @@ const getCurrentUser = () => {
 };
 
 const getMockUser = () => {
-  return localStorage.getItem("mock-user");
+  return JSON.parse(localStorage.getItem("mock-user"));
 };
 
 const AuthService = {
