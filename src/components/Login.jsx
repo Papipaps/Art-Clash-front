@@ -23,23 +23,12 @@ export default function Login() {
       password: "",
     },
 
-    onSubmit: (values) => {
-      const promise = AuthService.login(values.username, values.password);
-      promise.then((response) => {
-        localStorage.setItem("access_token", response.data.access_token);
-        localStorage.setItem("refresh_token", response.data.refresh_token);
-        ProfileService.getIProfileInformation("")
-        .then((response)=>{setUser(response.data)})
-        navigate("/home");
-        
-      });
-      // if (values.username == "admin" && values.password == "password") {
-      //   localStorage.setItem(
-      //     "mock-user",
-      //     JSON.stringify(mockProfils[0], null, 2)
-      //   );
-    },
-    // },
+    onSubmit: (values) => { 
+        AuthService.login(values).then(()=>{
+          navigate("/home");
+        })
+      
+    }, 
   });
   return ( 
     <div className="w-full flex flex-wrap">

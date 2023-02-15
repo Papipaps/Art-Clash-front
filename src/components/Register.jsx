@@ -33,13 +33,10 @@ export default function Register() {
       category: "Illustrator",
     },
 
-    onSubmit: (values) => {
-      AuthService.register(values).then((response) => {
-        //alert(
-        //  `Salut ${values.username} ! Tu ne peux pas te créer de compte !\nUtilise "admin" et "password" comme identifiant pour accéder au site ! \nBonne visite ! 😊`
-        //);
-        navigate("/login");
-      });
+    onSubmit: (values) => { 
+      AuthService.register(values).then(()=>{
+        navigate("/login"); 
+      })
     },
   });
 
@@ -75,7 +72,7 @@ export default function Register() {
               value={formik.values.password}
             />
           </div>
-          <div className="register-input">
+          <div className="register-input bg-slate-100">
             <TextField
               required
               className="register-input"
@@ -84,11 +81,13 @@ export default function Register() {
               label="Adresse mail"
               onChange={formik.handleChange}
               value={formik.values.email}
+              disabled
             />
           </div>
-          <div className="register-input flex flex-col justify-center">
+          <div className="register-input flex flex-col justify-center bg-slate-100">
             <InputLabel id="gender-selector">Genre</InputLabel>
             <Select
+            disabled
               labelId="gender-selector"
               id="demo-simple-select"
               name="gender"
@@ -101,9 +100,10 @@ export default function Register() {
               <MenuItem value="Homme">Homme</MenuItem>
             </Select>
           </div>
-          <div className="register-input">
+          <div className="register-input bg-slate-100">
             <InputLabel id="skill-selector">Catégorie</InputLabel>
             <Select
+            disabled
               labelId="category-selector"
               id="demo-simple-select"
               name="category"

@@ -2,19 +2,30 @@ import axios from "axios";
 import mockProfils from "../mock/mock-profils";
 import { LOGIN_CONTEXT, SIGNUP_CONTEXT } from "../utils/Paths";
 
+const API_URL = "http://localhost:8080/api/auth/";
 
 const register = async (values) => {
-  const registerDTO = { ...values };
-  return await axios.post(SIGNUP_CONTEXT, registerDTO);
+  console.log(values)
+  localStorage.setItem("fake-login",JSON.stringify(values))
+  const auth = JSON.parse(localStorage.getItem("fake-login")) 
 };
 
-const login = async (username, password) => {
-  return await axios({
-    method: "post",
-    url: LOGIN_CONTEXT,
-    data: { username, password },
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  });
+const login = async (values) => {
+
+  if (values.username == "admin" && values.password == "secret") {
+    localStorage.setItem("mock-user",mockProfils[0])
+  }else{
+    const auth =  JSON.parse(localStorage.getItem("fake-login"))
+    console.log("auth : ",auth,"input values :", values)
+    if (values.username === auth.username && values.password === auth.password) {
+      console.log("valid")
+
+      localStorage.setItem("mock-user",mockProfils[Math.floor(Math.random()*50)])
+    }else{
+      throw new Error("User not registed")
+    }
+  }
+
 };
 
 const logout = () => {
@@ -24,6 +35,7 @@ const logout = () => {
 const getCurrentUser = () => {
   return localStorage.getItem("access_token");
 };
+
 const getMockUser = () => {
   return localStorage.getItem("mock-user");
 };
