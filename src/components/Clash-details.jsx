@@ -1,32 +1,16 @@
 import { useState, useEffect, useLayoutEffect, useContext } from "react";
 import defaultBackgroundImage from "../media/images/defaultbgimage.webp";
 import Sidebar from "./SidebarCopy";
-import Community from "./Community";
-import Project from "./Project";
-import Contact from "./Contact";
 import "../styles/UserProfil.css";
-import "../styles/Popup.css";
-import GalleryGrid from "./GalleryGrid";
-import ProfileService from "../service/profil.service";
-import profilDTO from "../data/dto/profilDTO";
+import "../styles/Popup.css"; 
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import { BiEdit } from "react-icons/bi";
 import { GrContactInfo } from "react-icons/gr";
-import data from "../mock/mock-profils";
-import defaultavatar from "../media/images/avatar.jpg";
-import Popup from "./Popup";
-import axios from "axios";
-import authHeader from "../service/auth-header";
-import MediaService from "../service/media-service";
-import { isFocusable } from "@testing-library/user-event/dist/utils";
-import About from "./About";
-import SocialService from "../service/social-service";
-import { API_CONTEXT } from "../utils/Paths";
+ import defaultavatar from "../media/images/avatar.jpg"; 
 import { UserContext } from "../utils/userContext";
 import ClashService from "../service/clash-service";
-import { CustomFormButton } from "./form/form-components";
-import clashDTO from "../data/dto/clashDTO";
+ import clashDTO from "../data/dto/clashDTO";
 
 export default function ClashDetails() {
   const [viewedClash, setViewedClash] = useState(clashDTO);
@@ -41,8 +25,8 @@ export default function ClashDetails() {
   useEffect(() => {
     window.scrollTo(0, 0);
     ClashService.getClashById(clashId).then((response) => {
-      setViewedClash(response.data);
-      if (user.id === response.data.ownerId) {
+      setViewedClash(response);
+      if (user.id === response.ownerId) {
         setisOwner(true);
       }
       setIsLoading(false);
@@ -58,11 +42,7 @@ export default function ClashDetails() {
             <div
               style={{
                 backgroundSize: "cover",
-                backgroundImage: `url(${
-                  viewedClash.backgroundId
-                    ? `${API_CONTEXT}/media/download/${viewedClash.backgroundId}`
-                    : defaultBackgroundImage
-                })`,
+                backgroundImage: `url(${ defaultBackgroundImage })`,
               }}
               className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
             >
@@ -89,11 +69,11 @@ export default function ClashDetails() {
               <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
                 crée par : {viewedClash.ownerName}
               </p>
+                {isOwner &&
               <span className="  max-h-[150px] flex-col flex justify-evenly">
                 <Button className="p-4" color="primary">
                   <GrContactInfo size={30} />
                 </Button>
-                {
                   <Button
                     className="p-4"
                     onClick={() => {
@@ -103,27 +83,27 @@ export default function ClashDetails() {
                   >
                     <BiEdit size={30} />
                   </Button>
-                }
 
                 <button
-                  className="border border-black p-2 "
-                  onClick={() => ClashService.start(clashId)}
+                className="border border-black p-2 "
+                onClick={() => ClashService.start(clashId)}
                 >
                   DEMARRAGE
                 </button>
                 <button
-                  className="border border-black p-2 "
-                  onClick={() => ClashService.generateDummyContestants(clashId)}
+                className="border border-black p-2 "
+                onClick={() => ClashService.generateDummyContestants(clashId)}
                 >
                   GENERATE DUMMY
                 </button>
                 <button
-                  className="border border-black p-2 "
-                  onClick={() => ClashService.nextRound(clashId)}
+                className="border border-black p-2 "
+                onClick={() => ClashService.nextRound(clashId)}
                 >
                   SUIVANT
                 </button>
               </span>
+            }
             </div>
             {/* PROFIL CONTENT */}
             <div>

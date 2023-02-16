@@ -24,7 +24,7 @@ import {
 export default function Clash() {
   const [clashList, setClashList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -47,35 +47,15 @@ export default function Clash() {
 
   function loadMore() {
     if (user) {
-      ClashService.getPaginatedClashs("", true, page, TOTAL_LIST_SIZE).then(
+      ClashService.getPaginatedClashs(page, TOTAL_LIST_SIZE).then(
         (response) => {
-          setClashList([...clashList, ...response.data.content]);
-          setTotalElements(response.data.totalElements);
-          setTotalPage(response.data.totalPages);
+          console.log(response)
+          setClashList([...response]);
           setIsLoading(false);
         }
       );
     }
-  }
-
-  useEffect(() => {
-    const listenToScroll = () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = winScroll / height;
-
-      if (scrolled >= 1 && (page < totalPage - 1 || page === 0)) {
-        setPage((p) => p + 1);
-      }
-    };
-    window.addEventListener("scroll", listenToScroll);
-    return () => {
-      window.removeEventListener("scroll", listenToScroll);
-    };
-  }, [page]);
+  } 
 
   return (
     <Sidebar>
@@ -178,8 +158,7 @@ export default function Clash() {
                                 color="text.primary"
                                 fontWeight={700}
                               ></Typography>
-                              {" — "}
-                              <span> {clash.theme} </span>
+                              <span> {"Theme :"} {clash.theme} </span>
                             </>
                           }
                         />

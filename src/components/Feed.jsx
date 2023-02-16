@@ -27,7 +27,7 @@ function Feed() {
     function loadMorePost(){
         setLoading(true)
         PostService.getAllPosts(page).then((res)=>{
-            setPosts([...posts, ...res])
+             setPosts([...posts, ...res])
             setTotalPage(0)
             setLoading(false)
         })

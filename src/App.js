@@ -46,18 +46,18 @@ function App() {
         />
         <Route
           path="/clash-edit"
-          element={<ProtectedRoute component={<UnderConstruction />} />}
+          element={<ProtectedRoute component={<ClashEdit />} />}
         />
         <Route path="/minigame" element={<MiniGame />} />
         <Route path="/minigame/GuessGame" element={<UnderConstruction />} />
         <Route path="/minigame/FreeDrawing" element={<UnderConstruction />} />
         <Route
           path="/clash"
-          element={<ProtectedRoute component={<UnderConstruction />} />}
+          element={<ProtectedRoute component={<Clash />} />}
         />
         <Route
           path="/clash/:clashId"
-          element={<ProtectedRoute component={<UnderConstruction />} />}
+          element={<ProtectedRoute component={<ClashDetails />} />}
         />
 
         <Route

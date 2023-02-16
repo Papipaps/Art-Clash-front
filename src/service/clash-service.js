@@ -1,106 +1,40 @@
 import axios from "axios";
-import {
-  CLASH_URL_CREATE,
-  CLASH_URL_CREATE_COMMENT,
-  CLASH_URL_DELETE,
-  CLASH_URL_GET,
-  CLASH_URL_GET_BY_USER,
-  CLASH_URL_GET_COMMENTS, 
-  CLASH_URL_UPDATE,
-  CLASH_URL_GET_LIST,
-  CLASH_URL_NEXTROUND,
-  CLASH_URL_JOIN,
-  CLASH_URL_EXIT,
-  CLASH_URL_CLOSE,
-  CLASH_URL_DUMMY_FILL_CLASH,
-  CLASH_URL_UPLOAD_MEDIA
-
-} from "../utils/Paths";
+import { formatDate, paginate } from "../utils/formatDate";
 import authHeader from "./auth-header";
+import clashMock from "../mock/clash-mock";
 
-const createClash = async (data) => {
-  return await axios.post(CLASH_URL_CREATE, data, {
-    headers: authHeader(),
-  });
-};
-const closeClash = async (id) => {
-  return await axios.get(CLASH_URL_CLOSE + "/" + id, {
-    headers: authHeader(),
-  });
-};
+const createClash = async (data) => {};
+const closeClash = async (id) => {};
 const getClashById = async (id) => {
-  return await axios.get(CLASH_URL_GET + "/" + id, {
-    headers: authHeader(),
-  });
+  return clashMock.filter((clash) => clash.id === id)[0];
 };
-const joinClashById = async (id) => {
-  return await axios.post(CLASH_URL_JOIN + "/" + id, {
-    headers: authHeader(),
+const joinClashById = async (id) => {};
+const exitClashById = async (id) => {};
+const nextRound = async (id) => {};
+const generateDummyContestants = async (id) => {};
+
+const getPaginatedClashs = async (page, size) => {
+  console.log("fetching clash");
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(paginate(clashMock, 9, page));
+    }, 150);
   });
-};
-const exitClashById = async (id) => {
-  return await axios.get(CLASH_URL_EXIT + "/" + id, {
-    headers: authHeader(),
-  });
-};
-const nextRound = async (id) => {
-  return await axios.post(CLASH_URL_NEXTROUND + "/" + id, {
-    headers: authHeader(),
-  });
-};
-const generateDummyContestants = async (id) => {
-  return await axios.get(CLASH_URL_DUMMY_FILL_CLASH + "/" + id, {
-    headers: authHeader(),
-  });
+
+  let result = await promise;
+  console.log("data : ", clashMock, "- result : ", result);
+  return result;
 };
 
-const getPaginatedClashs = async (id, status, page, size) => {
-  return await axios.get(
-    CLASH_URL_GET_LIST +
-      `?page=${page}&size=${size}&isPublic=${
-        status ? status : true
-      }&ownerId=${id ? id : ""}`,
-    {
-      headers: authHeader(),
-    }
-  );
-};
+const deleteClashById = async (id) => {};
 
-const deleteClashById = async (id) => {
-  return await axios.delete(CLASH_URL_DELETE + "/" + id, {
-    headers: authHeader(),
-  });
-};
+const getCommentsByClashId = async (id) => {};
 
-const getCommentsByClashId = async (id) => {
-  return await axios.get(CLASH_URL_GET_COMMENTS + "/" + id, {
-    headers: authHeader(),
-  });
-};
+const getClashsByUser = async (id, page, size) => {};
 
-const getClashsByUser = async (id, page, size) => {
-  return await axios.get(
-    CLASH_URL_GET_BY_USER +
-      `/${id}${page ? `?page=${page}` : ""}${
-        size && page ? `?size=${size}` : ""
-      }`,
-    {
-      headers: authHeader(),
-    }
-  );
-};
+const createComment = async (data) => {};
 
-const createComment = async (data) => {
-  return await axios.post(CLASH_URL_CREATE_COMMENT, data, {
-    headers: authHeader(),
-  });
-};
-
-const updateClash = async (data) => {
-  return await axios.patch(CLASH_URL_UPDATE, data, {
-    headers: authHeader(),
-  });
-};
+const updateClash = async (data) => {};
 
 const ClashService = {
   getCommentsByClashId,
@@ -115,6 +49,6 @@ const ClashService = {
   nextRound,
   exitClashById,
   joinClashById,
-  generateDummyContestants
+  generateDummyContestants,
 };
 export default ClashService;

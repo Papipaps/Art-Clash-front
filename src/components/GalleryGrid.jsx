@@ -39,30 +39,30 @@ export default function GalleryGrid({ profile, isCurrentUser }) {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    const listenToScroll = () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = winScroll / height;
-      if (scrolled >= 1 && (page < totalPage - 1 || page === 0)) {
-        setPage((p) => p + 1);
-      }
-    };
-    window.addEventListener("scroll", listenToScroll);
-    return () => {
-      window.removeEventListener("scroll", listenToScroll);
-    };
-  }, [page]);
+  // useEffect(() => {
+  //   const listenToScroll = () => {
+  //     const winScroll =
+  //       document.body.scrollTop || document.documentElement.scrollTop;
+  //     const height =
+  //       document.documentElement.scrollHeight -
+  //       document.documentElement.clientHeight;
+  //     const scrolled = winScroll / height;
+  //     if (scrolled >= 1 && (page < totalPage - 1 || page === 0)) {
+  //       setPage((p) => p + 1);
+  //     }
+  //   };
+  //   window.addEventListener("scroll", listenToScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", listenToScroll);
+  //   };
+  // }, [page]);
 
   const openUploadDialog = () => {
     setUploadDialog((prev) => !prev);
   };
 
   function onSubmit(data) {
- 
+ alert("Ton upload n'a pas été prit en compte, mais t'inquiète j'y travaille 🤙")
   }
 
   function onFileUpload(file) {

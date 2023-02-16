@@ -160,7 +160,7 @@ export default function Profil() {
               <div className={`profil-content-tab-items `}>
                 <button
                   onClick={() => {
-                    setTabComponent(<Community profile={viewedProfil} />);
+                    setTabComponent(<h1>Communauté</h1>);
                   }}
                 >
                   {" "}
