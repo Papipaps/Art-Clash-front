@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import PostService from "../service/post-service";
 import postDTO from "../data/dto/postDTO";
 import Popup from "./Popup";
-import dateUtils from "../utils/formatDate";
+import {dateUtils} from "../utils/formatDate";
 import { API_CONTEXT } from "../utils/Paths";
 import LazyLoad from "react-lazy-load";
 

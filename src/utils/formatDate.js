@@ -1,5 +1,5 @@
 
-export default function dateUtils(d){
+export function dateUtils(d){
    const formattedDate =  d.getFullYear().toString()
             +"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"
             +(d.getMonth()+1).toString())
@@ -9,3 +9,7 @@ export default function dateUtils(d){
 
 return formattedDate ;
 }
+
+export function paginate(array, page_size, page_number) { 
+   return array.slice((page_number - 1) * page_size, page_number * page_size);
+ }

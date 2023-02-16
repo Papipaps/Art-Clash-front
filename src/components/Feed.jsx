@@ -6,32 +6,31 @@ import { useEffect } from 'react'
 import LazyLoad from 'react-lazy-load' 
 import postDTO from '../data/dto/postDTO'
 import MediaService from '../service/media-service' 
+import PostService from '../service/post-service'
 import { UserContext } from '../utils/userContext'
 import Panel from './Panel'
 
 function Feed() {
     const [posts,setPosts]=useState([])
     const [isLoading, setLoading]=useState(true);
-    const [page,setPage] = useState(0);
+    const [page,setPage] = useState(1);
     const [totalPage,setTotalPage]=useState(0);
 
     const {user} = useContext(UserContext)
 
     useEffect(()=>{
         if (user) {
-            console.log(user)
             loadMorePost()
         }
     },[user, page])
     
     function loadMorePost(){
         setLoading(true)
-        MediaService.getMediaByOwner(user.id,page).then((res) => {
-            const newPost = posts.concat(res.data.content)  
-            setPosts([...newPost])
-            setTotalPage(res.data.totalPages)
+        PostService.getAllPosts(page).then((res)=>{
+            setPosts([...posts, ...res])
+            setTotalPage(0)
             setLoading(false)
-        });
+        })
     }
     
     useEffect(() => {
@@ -56,7 +55,7 @@ function Feed() {
             {posts.map((post) =>
                 <LazyLoad>
                     <div>  
-                        <Panel item={{...postDTO, mediaId:post.id}}/>                      
+                        <Panel item={post}/>                      
                     </div>
                 </LazyLoad>
             )}

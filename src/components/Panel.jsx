@@ -28,17 +28,16 @@ export default function Panel({ item }) {
             
               }}
               className=" relative flex items-center justify-center">
-              {item.mediaId && (
+               
                 <div>
                   <div className="hidden" name="description" id="description">
-                    Description
+                    {item.description}
                   </div>
                   <img
                     className="block w-auto max-h-full object-cover"
-                    src={`${API_CONTEXT}/media/downloadFromDB/${item.mediaId}`}
+                    src={require(`../media/dessin/${item.imageUrl}`)}
                     />
-                </div>
-              )}
+                </div> 
             </div>
 
             <div className="popup-bottom h-full">
@@ -64,8 +63,8 @@ export default function Panel({ item }) {
         <img
           onClick={() => setPopupOpen(true)}
           className="h-full"
-          src={`${API_CONTEXT}/media/downloadFromDB/${item.mediaId}`}
-        />
+          src={require(`../media/dessin/${item.imageUrl}`)}
+          />
       </div>
     </section>
   );

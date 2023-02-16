@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export function CustomInputText({ label, labelKey, defaultValue, register }) {
   const inputLabel = label ? label : labelKey;
-  console.log(defaultValue);
   return (
     <div className="relative rounded-md shadow-sm mb-2">
       <label className="block font-medium text-gray-700">
@@ -49,7 +48,6 @@ export function CustomTextAreaInput({
   maxHeight = "300px",
 }) {
   const inputLabel = label ? label : labelKey;
-  console.log(defaultValue);
   return (
     <div className="relative rounded-md shadow-sm mb-2">
       <label className="block font-medium text-gray-700">

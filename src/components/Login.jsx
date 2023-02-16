@@ -3,7 +3,7 @@ import { Link, redirect, useNavigate } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./Register";
-import image from "../media/images/Dessin (1).png";
+import image from "../media/dessin/landing.png";
 import AuthService from "../service/auth-service";
 import mockProfils from "../mock/mock-profils";
 import Sidebar from "./SidebarCopy";
@@ -45,7 +45,7 @@ export default function Login() {
           </p>
           <form
             onSubmit={formik.handleSubmit}
-            className="flex flex-col pt-3 md:pt-8"
+            className="flex flex-col pt-3 md:pt-8 px-24"
           >
             <div className="flex flex-col pt-4">
               <TextField

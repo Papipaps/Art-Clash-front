@@ -1,6 +1,6 @@
 export default [
   {
-    id: "9e24e43e-09f6-472f-b8ae-89f454ad307f",
+    id: "uuid-admin",
     firstname: "Jordan",
     lastname: "Bohringer",
     backgroundId: "ddb70e84-6cd1-4b10-88ef-81d140bc1915",

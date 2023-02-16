@@ -31,7 +31,7 @@ export default function GalleryGrid({ profile, isCurrentUser }) {
 
   useEffect(() => {
     loadMorePosts();
-  }, [page]);
+  }, [page, profile]);
 
   const {
     register,
@@ -62,40 +62,18 @@ export default function GalleryGrid({ profile, isCurrentUser }) {
   };
 
   function onSubmit(data) {
-    console.log("submitting...", data);
-    if (uploadPending && data.title.length > 0) {
-      PostService.createPost({
-        ...data,
-        mediaId: uploadedMediaId,
-      }).then((res) => {
-        setUploadPending(false);
-        loadMorePosts();
-        setUploadDialog(false);
-      });
-    }
+ 
   }
 
   function onFileUpload(file) {
     const formData = new FormData();
     formData.append("file", file);
-    console.log("attempting submitting file.... alreadyPending ? ",uploadPending);
-    if (uploadPending) {
-      console.log("file pending, attempting deletion... ");
-      MediaService.deleteMediaById(uploadedMediaId).then(() => {
-        console.log("successfully deleted");
-      });
-    }
-    MediaService.uploadMedia(formData).then((response) => {
-          console.log("successfully uploaded with id : ",response.data.payload);
-          setUploadedMediaId(response.data.payload);
-          setUploadPending(true);
-        });
   }
 
   function loadMorePosts() {
-    PostService.getMediaPostsByUser(profile.id, page).then((response) => {
-      setPosts([...posts, ...response.data.content]);
-      setTotalPage(response.data.totalPages);
+    PostService.getPostByOwner(profile.id).then((response) => {
+      setPosts([...response]);
+      setTotalPage((response.length%9)+1);
       setIsLoading(false);
     });
   }
@@ -115,9 +93,7 @@ export default function GalleryGrid({ profile, isCurrentUser }) {
         <Popup
           width={"fit-content"}
           onComponentExited={() => {
-            console.log("exited");
             if (uploadPending) {
-              console.log("deleting");
               MediaService.deleteMediaById(uploadedMediaId);
             }
           }}
@@ -183,7 +159,7 @@ export default function GalleryGrid({ profile, isCurrentUser }) {
                 >
                   <img
                     className="object-cover overflow-hidden h-full"
-                    src={require("../media/images/wallpaper.png")}
+                    src={require(`../media/dessin/${post.imageUrl}`)}
                     alt="image"
                   />
                 </div>

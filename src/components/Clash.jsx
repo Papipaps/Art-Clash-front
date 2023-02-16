@@ -39,9 +39,7 @@ export default function Clash() {
   }, [user, page]);
 
   function onSubmit(data) {
-    console.log("sss", data);
     ClashService.createClash(data).then((response) => {
-      console.log(response.data);
       setPopupOpen(false);
       setClashList([...clashList, response.data]);
     });

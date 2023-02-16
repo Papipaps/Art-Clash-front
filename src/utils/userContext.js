@@ -11,14 +11,13 @@ function UserProvider({ children }) {
 
   useEffect(() => {
     const currentUser = AuthService.getMockUser();
-    console.log("provider : ",currentUser)
     if (currentUser) {
       setUser(currentUser);
     } else {
       AuthService.logout();
       navigation("/login");
     }
-  }, []);
+  }, [children]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

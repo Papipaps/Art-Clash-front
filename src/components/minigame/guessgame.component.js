@@ -29,7 +29,6 @@ export default function GuessGame() {
   // TIMER /////////////////
   function startTimer() {
     if (!isRunning) {
-      console.log("starting timer");
       intervalRef.current = setInterval(() => {
         setTimer((prevState) => prevState - 1);
       }, 1000);
@@ -37,32 +36,27 @@ export default function GuessGame() {
   }
 
   function stopTimer() {
-    console.log("stopping timer");
     clearInterval(intervalRef.current);
     intervalRef.current = null;
     setTimer(ROUND_TIME);
   }
   // ROUND ////////////////////
   function onRoundNext() {
-    console.log("next round");
     setRound((prev) => prev + 1);
     setTimer(ROUND_TIME);
     setCurrentWordIndex((prev) => prev + 1);
-    console.log("new word");
     setCurrentWord(wordPool[currentWordIndex]);
   }
 
   // GAME EVENT////////////
 
   function onGameStart() {
-    console.log("START game");
     setGameOver(false);
     setCurrentWord(wordPool[0]);
     startTimer();
   }
 
   function onGameEnd() {
-    console.log("END game");
     setPopupOpen();
     setGameOver(true);
     setRound(1);
@@ -75,7 +69,6 @@ export default function GuessGame() {
   function handleGuess(e) {
     e.preventDefault();
     if (guessRef.current.value === currentWord) {
-      console.log("GG !");
       onRoundNext();
     }
     guessRef.current.value = "";
@@ -85,7 +78,6 @@ export default function GuessGame() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
   useEffect(() => {
-    console.log("loading words");
     for (let i = 0; i < 10; i++) {
       const rdm = randomIntFromInterval(0, words.length - 1);
       setWordPool((prev) => [...prev, words[rdm]]);
@@ -99,9 +91,7 @@ export default function GuessGame() {
   }, [round]);
 
   useMemo(() => {
-    console.log(timer);
     if (timer < 0) {
-      console.log(wordPool[currentWordIndex]);
       onRoundNext();
     }
   }, [timer]);

@@ -32,17 +32,10 @@ export default function Profil() {
   const [isCurrentUser, setIsCurrentUser] = useState(true);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tabComponent, setTabComponent] = useState(<></>);
-   const navigate = new useNavigate();
+  const navigate = new useNavigate();
 
   const { username } = useParams();
   const { user } = useContext(UserContext);
-
-  // const toggleAbout = () => {
-  //   SocialService.getFollowers(viewedProfil.id).then((response)=>{
-  //     console.log(response.data)
-  //     setPopupOpen((prev) => !prev);
-  //   })
-  // };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,131 +46,142 @@ export default function Profil() {
         <GalleryGrid isCurrentUser={isCurrentUser} profile={user} />
       );
       setIsLoading(false);
+    } else if (username === 'Papipaps') {
+      setIsCurrentUser(false);
+      setViewedProfil(mockProfils[0]);
+      setTabComponent(
+        <GalleryGrid isCurrentUser={false} profile={mockProfils[0]} />
+      );
+      setIsLoading(false);
     } else {
-          setViewedProfil(mockProfils[Math.floor(Math.random()*50)]);
-          setTabComponent(
-          );
-          setIsLoading(false);
+      setIsCurrentUser(false);
+      setViewedProfil(
+        mockProfils.filter((p) => p.id !== 'uuid-admin')[Math.floor(Math.random() * 49)]
+      );
+      setTabComponent(
+        <GalleryGrid isCurrentUser={false} profile={viewedProfil} />
+      );
+      setIsLoading(false);
     }
-  }, []);
+  }, [username,user]);
 
   return (
     <>
-      <Sidebar> 
-          <div className="bg-slate-50 flex justify-center  w-full mb-4 h-screen">
-            <div className="flex flex-col min-w-fit break-words bg-white h-full w-full   ">
-              {/* PROFIL INFO CARD */}
-              <div
-                style={{
-                  backgroundSize: "cover",
-                  backgroundImage: `url(${defaultBackgroundImage})`,
-                }}
-                className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
-              >
-                <div className="flex flex-wrap justify-center text-white">
-                  <div className="border border-white h-[250px] w-[250px]">
-                    {" "}
-                    <img src={defaultavatar} alt="" srcset="" />
+      <Sidebar>
+        <div className="bg-slate-50 flex justify-center  w-full mb-4 h-screen">
+          <div className="flex flex-col min-w-fit break-words bg-white h-full w-full   ">
+            {/* PROFIL INFO CARD */}
+            <div
+              style={{
+                backgroundSize: "cover",
+                backgroundImage: `url(${defaultBackgroundImage})`,
+              }}
+              className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
+            >
+              <div className="flex flex-wrap justify-center text-white">
+                <div className="border border-white h-[250px] w-[250px]">
+                  {" "}
+                  <img src={defaultavatar} alt="" srcset="" />
+                </div>
+                <div className="profil-primary w-full">
+                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
+                    {viewedProfil.anonymous ? (
+                      viewedProfil.username
+                    ) : (
+                      <div>
+                        <span>{viewedProfil.username} </span>
+                        {viewedProfil.firstname && (
+                          <span className="italic">
+                            {" - "}
+                            {viewedProfil.firstname} {viewedProfil.lastname}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </h3>
+                  <div className="text-sm leading-normal mt-0 mb-2  font-bold uppercase">
+                    {viewedProfil.country} based {viewedProfil.category}
                   </div>
-                  <div className="profil-primary w-full">
-                    <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
-                      {viewedProfil.anonymous ? (
-                        viewedProfil.username
-                      ) : (
-                        <div>
-                          <span>{viewedProfil.username} </span>
-                          {viewedProfil.firstname && (
-                            <span className="italic">
-                              {" - "}
-                              {viewedProfil.firstname} {viewedProfil.lastname}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </h3>
-                    <div className="text-sm leading-normal mt-0 mb-2  font-bold uppercase">
-                      {viewedProfil.country} based {viewedProfil.category}
-                    </div>
-                  </div>
                 </div>
               </div>
-              {/* PROFIL CONNECT */}
-              <div className="w-full gap-2    first-letter:text-center flex justify-center   px-12 py-6">
-                <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
-                  {viewedProfil.description
-                    ? "Bio : " + viewedProfil.description
-                    : "Cet utilisateur n'a pas de bio.. 😅"}
-                </p>
-                <span className="  max-h-[150px] flex-col flex justify-evenly">
-                  <Button className="p-4" color="primary">
-                    <GrContactInfo size={30} />
-                  </Button>
-                  {isCurrentUser && (
-                    <Button
-                      className="p-4"
-                      onClick={() => {
-                        navigate("/profil-edit");
-                      }}
-                      color="primary"
-                    >
-                      <BiEdit size={30} />
-                    </Button>
-                  )}
-                </span>
-              </div>
-              {/* PROFIL TAB CONTENT */}
-              <div className="profil-content-tab  relative flex justify-around">
-                <div className={`profil-content-tab-items`}>
-                  <button
-                    onClick={() => {
-                      setTabComponent(
-                        <GalleryGrid
-                          isCurrentUser={isCurrentUser}
-                          profile={viewedProfil}
-                        />
-                      );
-                    }}
-                  >
-                    {" "}
-                    Gallerie
-                  </button>
-                </div>
-                <div className={`profil-content-tab-items`}>
-                  <button
-                    onClick={() => {
-                      setTabComponent(<Project />);
-                    }}
-                  >
-                    {" "}
-                    Projets
-                  </button>
-                </div>
-
-                <div className={`profil-content-tab-items `}>
-                  <button
-                    onClick={() => {
-                      setTabComponent(<Community profile={viewedProfil} />);
-                    }}
-                  >
-                    {" "}
-                    Communauté
-                  </button>
-                </div>
-                <div className={`profil-content-tab-items `}>
-                  <button
-                    onClick={() => {
-                      setTabComponent(<Contact />);
-                    }}
-                  >
-                    {" "}
-                    Contact
-                  </button>
-                </div>
-              </div>
-              {/* PROFIL CONTENT */}
-              <div>{tabComponent}</div>
             </div>
-          </div> 
+            {/* PROFIL CONNECT */}
+            <div className="w-full gap-2    first-letter:text-center flex justify-center   px-12 py-6">
+              <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
+                {viewedProfil.description
+                  ? "Bio : " + viewedProfil.description
+                  : "Cet utilisateur n'a pas de bio.. 😅"}
+              </p>
+              <span className="  max-h-[150px] flex-col flex justify-evenly">
+                <Button className="p-4" color="primary">
+                  <GrContactInfo size={30} />
+                </Button>
+                {isCurrentUser && (
+                  <Button
+                    className="p-4"
+                    onClick={() => {
+                      navigate("/profil-edit");
+                    }}
+                    color="primary"
+                  >
+                    <BiEdit size={30} />
+                  </Button>
+                )}
+              </span>
+            </div>
+            {/* PROFIL TAB CONTENT */}
+            <div className="profil-content-tab  relative flex justify-around">
+              <div className={`profil-content-tab-items`}>
+                <button
+                  onClick={() => {
+                    setTabComponent(
+                      <GalleryGrid
+                        isCurrentUser={isCurrentUser}
+                        profile={viewedProfil}
+                      />
+                    );
+                  }}
+                >
+                  {" "}
+                  Gallerie
+                </button>
+              </div>
+              <div className={`profil-content-tab-items`}>
+                <button
+                  onClick={() => {
+                    setTabComponent(<Project />);
+                  }}
+                >
+                  {" "}
+                  Projets
+                </button>
+              </div>
+
+              <div className={`profil-content-tab-items `}>
+                <button
+                  onClick={() => {
+                    setTabComponent(<Community profile={viewedProfil} />);
+                  }}
+                >
+                  {" "}
+                  Communauté
+                </button>
+              </div>
+              <div className={`profil-content-tab-items `}>
+                <button
+                  onClick={() => {
+                    setTabComponent(<Contact />);
+                  }}
+                >
+                  {" "}
+                  Contact
+                </button>
+              </div>
+            </div>
+            {/* PROFIL CONTENT */}
+            <div>{tabComponent}</div>
+          </div>
+        </div>
       </Sidebar>
     </>
   );

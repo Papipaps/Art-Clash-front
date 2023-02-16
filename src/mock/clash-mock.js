@@ -1,13 +1,13 @@
 export default [
   {
     id: "44316c31-b296-4f34-92c8-faff79078323",
-    ownerId: "9e24e43e-09f6-472f-b8ae-89f454ad307f",
+    ownerId: "uuid-admin",
     title: "Titre",
     theme: "Freestyle",
     description: "description",
     createdDate: "2023-02-15T23:26:58.7968477",
     contestant: [
-      "9e24e43e-09f6-472f-b8ae-89f454ad307f",
+      "uuid-admin",
       "9e24e43e-0a49-472f-b8ae-89f454ad307f",
       "d767a3e6-9071-4a26-944c-e4bf6eaba770",
       "20b0c5ca-d691-4fd3-a998-f8f5908d9982",
@@ -16,7 +16,7 @@ export default [
       "4d801ff8-21ff-47e0-8197-16dace036a65",
       "5b6f47ba-53b1-42b7-a906-e72f501367b5",
     ],
-    first: "9e24e43e-09f6-472f-b8ae-89f454ad307f",
+    first: "uuid-admin",
     second: "9e24e43e-0a49-472f-b8ae-89f454ad307f",
     third: "d767a3e6-9071-4a26-944c-e4bf6eaba770",
     round: 3,

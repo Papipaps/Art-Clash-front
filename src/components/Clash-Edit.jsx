@@ -57,7 +57,6 @@ export default function ClashEdit() {
     }; 
     if (newData) {
       ClashService.updateClash(newData).then((response) => {
-        console.log(response.data);
         navigate(-1);
       });
     }

@@ -51,7 +51,6 @@ function App() {
         <Route path="/minigame" element={<MiniGame />} />
         <Route path="/minigame/GuessGame" element={<UnderConstruction />} />
         <Route path="/minigame/FreeDrawing" element={<UnderConstruction />} />
-        {/* <Route path="/minigame/Lobby/:gameid" element={<Lobby />} /> */}
         <Route
           path="/clash"
           element={<ProtectedRoute component={<UnderConstruction />} />}
@@ -72,7 +71,7 @@ function App() {
 
 const ProtectedRoute = ({ component }) => {
   const user = AuthService.getMockUser();
-   if (user) {
+  if (user) {
     return component;
   }
   return <Navigate to="/login" replace />;
@@ -80,7 +79,7 @@ const ProtectedRoute = ({ component }) => {
 
 const PublicRoute = ({ component }) => {
   const user = AuthService.getMockUser();
-   if (user) {
+  if (user) {
     return <Navigate to="/home" />;
   }
   return component;

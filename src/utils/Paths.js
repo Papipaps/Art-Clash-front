@@ -1,5 +1,5 @@
-// export const API_CONTEXT = "http://localhost:8080/api" 
-export const API_CONTEXT = "https://artclash-service.onrender.com/api"
+export const API_CONTEXT = "http://localhost:8080/api" 
+//export const API_CONTEXT = "https://artclash-service.onrender.com/api"
 
 // ROUTES
 
