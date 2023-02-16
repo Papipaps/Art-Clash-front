@@ -71,16 +71,16 @@ function App() {
 }
 
 const ProtectedRoute = ({ component }) => {
-  const user = AuthService.getCurrentUser();
-  if (user) {
+  const user = AuthService.getMockUser();
+   if (user) {
     return component;
   }
   return <Navigate to="/login" replace />;
 };
 
 const PublicRoute = ({ component }) => {
-  const user = AuthService.getCurrentUser();
-  if (user) {
+  const user = AuthService.getMockUser();
+   if (user) {
     return <Navigate to="/home" />;
   }
   return component;

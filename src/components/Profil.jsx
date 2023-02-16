@@ -24,6 +24,7 @@ import About from "./About";
 import SocialService from "../service/social-service";
 import { API_CONTEXT } from "../utils/Paths";
 import { UserContext } from "../utils/userContext";
+import mockProfils from "../mock/mock-profils";
 
 export default function Profil() {
   const [viewedProfil, setViewedProfil] = useState(profilDTO);
@@ -45,8 +46,7 @@ export default function Profil() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    if (user && (user.username == username || user.username == undefined)) {
+    if (user && (user.username == username || username == undefined)) {
       setIsCurrentUser(true);
       setViewedProfil(user);
       setTabComponent(
@@ -54,18 +54,10 @@ export default function Profil() {
       );
       setIsLoading(false);
     } else {
-      ProfileService.getPublicContent(username ? username : "").then(
-        (response) => {
-          setViewedProfil(response.data);
+          setViewedProfil(mockProfils[Math.floor(Math.random()*50)]);
           setTabComponent(
-            <GalleryGrid
-              isCurrentUser={isCurrentUser}
-              profile={response.data}
-            />
           );
           setIsLoading(false);
-        }
-      );
     }
   }, []);
 
@@ -78,11 +70,7 @@ export default function Profil() {
               <div
                 style={{
                   backgroundSize: "cover",
-                  backgroundImage: `url(${
-                    viewedProfil.backgroundId
-                      ? `${API_CONTEXT}/media/download/${viewedProfil.backgroundId}`
-                      : defaultBackgroundImage
-                  })`,
+                  backgroundImage: `url(${defaultBackgroundImage})`,
                 }}
                 className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
               >

@@ -183,7 +183,7 @@ export default function GalleryGrid({ profile, isCurrentUser }) {
                 >
                   <img
                     className="object-cover overflow-hidden h-full"
-                    src={`${API_CONTEXT}/media/downloadFromDB/${post.mediaId}`}
+                    src={require("../media/images/wallpaper.png")}
                     alt="image"
                   />
                 </div>

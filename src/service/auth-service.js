@@ -13,14 +13,13 @@ const register = async (values) => {
 const login = async (values) => {
 
   if (values.username == "admin" && values.password == "secret") {
-    localStorage.setItem("mock-user",mockProfils[0])
+    localStorage.setItem("mock-user",JSON.stringify(mockProfils[0]))
   }else{
     const auth =  JSON.parse(localStorage.getItem("fake-login"))
     console.log("auth : ",auth,"input values :", values)
     if (values.username === auth.username && values.password === auth.password) {
       console.log("valid")
-
-      localStorage.setItem("mock-user",mockProfils[Math.floor(Math.random()*50)])
+      localStorage.setItem("mock-user",JSON.stringify(mockProfils[Math.floor(Math.random()*50)]))
     }else{
       throw new Error("User not registed")
     }

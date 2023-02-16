@@ -1,35 +1,30 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AuthService from '../service/auth-service';
-import ProfileService from '../service/profil.service';
+import React, { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../service/auth-service";
+import mockProfils from "../mock/mock-profils";
 
 const UserContext = createContext();
 
-function UserProvider({ children }){
-    
-    const [user,setUser] = useState(null) 
-    const navigation = useNavigate();
+function UserProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const navigation = useNavigate();
 
-    useEffect(() => {
-        if( AuthService.getCurrentUser() ){ 
-            ProfileService.getIProfileInformation("")
-            .then((response) => {
-                setUser(response.data);
-            })
-            .catch(() => {
-                    AuthService.logout();
-                    navigation("/login")        
-            })
-        } else {
-            navigation("/login")
-        }; 
-     },[])
+  useEffect(() => {
+    const currentUser = AuthService.getMockUser();
+    console.log("provider : ",currentUser)
+    if (currentUser) {
+      setUser(currentUser);
+    } else {
+      AuthService.logout();
+      navigation("/login");
+    }
+  }, []);
 
-    return (
-        <UserContext.Provider value={{user,setUser}}>
-          {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
-export { UserProvider, UserContext }
+export { UserProvider, UserContext };
