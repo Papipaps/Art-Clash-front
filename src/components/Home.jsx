@@ -7,7 +7,7 @@ export default function Home() {
   return ( 
     <Sidebar>
       <section>  
-        <TrendingNav/>
+        {/* <TrendingNav/> */}
         <Feed/>
       </section>
     </Sidebar>
