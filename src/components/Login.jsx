@@ -45,7 +45,7 @@ export default function Login() {
           </p>
           <form
             onSubmit={formik.handleSubmit}
-            className="flex flex-col pt-3 md:pt-8 px-24"
+            className="  flex flex-col pt-3 md:pt-8 px-6"
           >
             <div className="flex flex-col pt-4">
               <TextField

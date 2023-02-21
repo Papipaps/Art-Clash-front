@@ -10,6 +10,7 @@ import { UserContext } from "../utils/userContext";
 import Sidebar from "./SidebarCopy";
 import "../styles/Clash.css";
 import { Link, useNavigate } from "react-router-dom";
+import { BiArrowToRight } from "react-icons/bi";
 import ClashService from "../service/clash-service";
 import Popup from "./Popup";
 import { useForm } from "react-hook-form";
@@ -49,122 +50,104 @@ export default function Clash() {
     if (user) {
       ClashService.getPaginatedClashs(page, TOTAL_LIST_SIZE).then(
         (response) => {
-          console.log(response)
+          console.log(response);
           setClashList([...response]);
           setIsLoading(false);
         }
       );
     }
-  } 
+  }
 
   return (
     <Sidebar>
-      {isPopupOpen && (
-        <Popup isExitable={true} setPopupOpen={setPopupOpen}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <CustomFormContainer width={"550px"}>
-              <CustomInputText
-                register={register}
-                label={"Nommez le clash ! "}
-                labelKey={"title"}
-              />
-              <CustomTextAreaInput
-                register={register}
-                label={"Description"}
-                labelKey={"description"}
-              />
-              <CustomInputText
-                label={"Theme ?"}
-                register={register}
-                labelKey={"theme"}
-              />
-              <CustomDropdownSelector
-              register={register}
-                label={"Nombre de participant"}
-                labelKey={"slot"}
-                numbers={[6,8,10]}
-              />
-              <CustomDropdownSelector
-                register={register}
-                label={"Manche"}
-                labelKey={"round"}
-                numbers={[3,4,5]}
-              />
-              <CustomFormButton
-                register={register}
-                label={"Envoyer"}
-                buttonType="submit"
-              />
-            </CustomFormContainer>
-          </form>
-        </Popup>
-      )}
-      <div className="w-full h-full bg-blue-600">
+      <div className="bg-blue-600 w-full h-full">
         <section className="clash-wrapper h-full">
-          <div className="clash-herobanner md:visible clash-hero  h-[400px] bg-orange-500">
-            <img className="bg-orange-400" src="" />
-            <h1>TITRE</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur.<span></span>
-            </p>
-            <button className="bg-white">SPECIAL CLASH</button>
-          </div>
-          <div className="clash-herobanner-mobile hidden clash-hero  h-[200px] bg-red-500">
-            <img className="bg-orange-400" src="" />
-            <h1>TITRE</h1>
-            <p>Lorem ipsum dolor sit amet consectetur.</p>
-            <button className="bg-white">SPECIAL CLASH</button>
-          </div>
-          <div className="clash-content h-fit p-4 bg-green-500 justify-center">
-            <p>dummy text</p>
-            
-            <div className="clash-herotext w-full md:w-[800px] md:text-center my-10">
-              <h1>TITLE</h1>
-              <p className="md:px-32 mb-6 text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                officiis earum quae nesciunt fugiat, molestiae voluptatibus sed
-                recusandae labore laborum veniam perferendis unde voluptatem
-                obcaecati exercitationem nobis? Praesentium, aspernatur soluta?
+          {/* Hero section */}
+          <div className="clash-herobanner sm:visible clash-hero h-[400px] bg-orange-500 flex items-center justify-center">
+            <img className="bg-orange-400" src="" alt="" />
+            <div className="text-center">
+              <h1 className="text-white text-3xl font-bold">TITRE</h1>
+              <p className="text-white">
+                Lorem ipsum dolor sit amet consectetur.
               </p>
-              <h2>
-                PARTICIPEZ OU CREER :
-                <button onClick={() => setPopupOpen(true)} className="bg-white">
-                  {" "}
-                  CREER CLASH{" "}
-                </button>
-              </h2>
+              <button
+                onClick={() => navigate("/clash/special-clash")}
+                className="bg-white rounded-full px-4 py-2 mt-4 text-sm font-semibold"
+              >
+                SPECIAL CLASH <BiArrowToRight className="inline w-4 h-4 ml-2" />
+              </button>
             </div>
-            <div className="clash-list overflow-scroll h-[650px] w-[350px] md:w-[450px] bg-slate-500-500 border border-black">
+          </div>
+
+          {/* Mobile Hero section */}
+          <div className="clash-herobanner-mobile hidden clash-hero h-[200px] bg-red-500 justify-center items-center">
+            <img className="bg-orange-400" src="" alt="" />
+            <div className="text-center">
+              <h1 className="text-white text-2xl font-bold">TITRE</h1>
+              <p className="text-white">
+                Lorem ipsum dolor sit amet consectetur.
+              </p>
+              <Link
+                to="/"
+                className="bg-white rounded-full  py-5 px-3 mt-4 text-sm font-semibold flex items-center"
+              >
+                SPECIAL CLASH <BiArrowToRight className="w-4 h-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Main content */}
+          <div className="clash-content flex flex-col items-center justify-center h-screen p-4 bg-green-500">
+            <div className="clash-herotext w-full md:w-[800px] md:text-center my-10">
+              <h1 className="text-4xl font-bold mb-4">TITLE</h1>
+              <p className="md:px-32 mb-6 text-justify text-lg">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                tempus magna ac odio dignissim facilisis. Donec in sollicitudin
+                velit. Integer posuere metus lectus, at bibendum metus malesuada
+                id. Ut convallis libero id enim posuere mollis. Suspendisse ut
+                nulla magna.
+              </p>
+              <div className="flex justify-center mb-8">
+                <Link
+                  to="/create-clash"
+                  className="bg-white rounded-full py-3 px-6 text-lg font-semibold flex items-center"
+                >
+                  CREER CLASH <BiArrowToRight className="w-6 h-6 ml-2" />
+                </Link>
+              </div>
+            </div>
+            <div className="clash-list bg-slate-200 overflow-scroll h-[50vh] w-[90vw] md:w-[800px] bg-slate-500-500 ">
               <ul>
                 {clashList.map((clash, index) => (
-                  <>
-                    <div
-                      key={index}
-                      className="p-2 cursor-pointer bg-white hover:brightness-75 h-full "
-                      onClick={() => navigate("/clash/" + clash.id)}
-                    >
-                      <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                          <Avatar src="/static/images/avatar/1.jpg" />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={clash.title}
-                          secondary={
-                            <>
-                              <Typography
-                                sx={{ display: "inline" }}
-                                component="span"
-                                variant="body2"
-                                color="text.primary"
-                                fontWeight={700}
-                              ></Typography>
-                              <span> {"Theme :"} {clash.theme} </span>
-                            </>
-                          }
-                        />
-                      </ListItem>
-                    </div>
-                  </>
+                  <div
+                    key={index}
+                    className="p-2 cursor-pointer  bg-white hover:brightness-75 h-full "
+                    onClick={() => navigate("/clash/" + clash.id)}
+                  >
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar src="/static/images/avatar/1.jpg" />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={clash.title}
+                        secondary={
+                          <>
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="body2"
+                              color="text.primary"
+                              fontWeight={700}
+                            ></Typography>
+                            <span>
+                              {" "}
+                              {"Theme :"} {clash.theme}{" "}
+                            </span>
+                          </>
+                        }
+                      />
+                    </ListItem>
+                  </div>
                 ))}
               </ul>
             </div>

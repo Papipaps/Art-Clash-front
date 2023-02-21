@@ -2,15 +2,22 @@ import { useState, useEffect, useLayoutEffect, useContext } from "react";
 import defaultBackgroundImage from "../media/images/defaultbgimage.webp";
 import Sidebar from "./SidebarCopy";
 import "../styles/UserProfil.css";
-import "../styles/Popup.css"; 
+import "../styles/Popup.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { BiEdit } from "react-icons/bi";
 import { GrContactInfo } from "react-icons/gr";
- import defaultavatar from "../media/images/avatar.jpg"; 
+import defaultavatar from "../media/images/avatar.jpg";
 import { UserContext } from "../utils/userContext";
 import ClashService from "../service/clash-service";
- import clashDTO from "../data/dto/clashDTO";
+import clashDTO from "../data/dto/clashDTO";
 
 export default function ClashDetails() {
   const [viewedClash, setViewedClash] = useState(clashDTO);
@@ -42,7 +49,7 @@ export default function ClashDetails() {
             <div
               style={{
                 backgroundSize: "cover",
-                backgroundImage: `url(${ defaultBackgroundImage })`,
+                backgroundImage: `url(${defaultBackgroundImage})`,
               }}
               className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
             >
@@ -56,55 +63,57 @@ export default function ClashDetails() {
                     {viewedClash.title}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2  font-bold uppercase">
-                    {viewedClash.theme}
+                    THEME : {viewedClash.theme}
                   </div>
                 </div>
               </div>
             </div>
             {/* PROFIL CONNECT */}
-            <div className="w-full gap-2    first-letter:text-center flex justify-center   px-12 py-6">
-              <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
+            <div className="w-full relative gap-2  first-letter:text-center  justify-center   px-12 py-6">
+              <p className="mb-4 w-4/5 max-h-[250px] overflow-hidden self-center text-justify  ">
                 {viewedClash.description}
               </p>
               <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
-                crée par : {viewedClash.ownerName}
+                crée par : <strong>{viewedClash.ownerName}</strong>
               </p>
-                {isOwner &&
-              <span className="  max-h-[150px] flex-col flex justify-evenly">
-                <Button className="p-4" color="primary">
-                  <GrContactInfo size={30} />
-                </Button>
-                  <Button
-                    className="p-4"
-                    onClick={() => {
-                      navigate("/clash-edit", { state: { clashId: clashId } });
-                    }}
-                    color="primary"
+              <span className="absolute right-0 top-8 w-1/5  max-h-[150px] flex-col flex justify-evenly">
+                {isOwner ? (
+                  <>
+                    <Button
+                      className="p-4"
+                      onClick={() => {
+                        navigate("/clash-edit", {
+                          state: { clashId: clashId },
+                        });
+                      }}
+                      color="primary"
+                    >
+                      <BiEdit size={30} />
+                    </Button>
+                    <button
+                      className=" p-2 "
+                      onClick={() => ClashService.start(clashId)}
+                    >
+                      DEMARRAGE
+                    </button>
+                    <button
+                      className=" p-2 "
+                      onClick={() => ClashService.nextRound(clashId)}
+                    >
+                      SUIVANT
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className=" p-2 "
+                    onClick={() => ClashService.nextRound(clashId)}
                   >
-                    <BiEdit size={30} />
-                  </Button>
-
-                <button
-                className="border border-black p-2 "
-                onClick={() => ClashService.start(clashId)}
-                >
-                  DEMARRAGE
-                </button>
-                <button
-                className="border border-black p-2 "
-                onClick={() => ClashService.generateDummyContestants(clashId)}
-                >
-                  GENERATE DUMMY
-                </button>
-                <button
-                className="border border-black p-2 "
-                onClick={() => ClashService.nextRound(clashId)}
-                >
-                  SUIVANT
-                </button>
+                    SUIVANT
+                  </button>
+                )}
               </span>
-            }
             </div>
+
             {/* PROFIL CONTENT */}
             <div>
               {viewedClash.status === "FINISHED" && (
@@ -123,37 +132,39 @@ export default function ClashDetails() {
                       <span>USERNAME</span>
                     </div>
                   </ListItemAvatar>
-                </div>
-              )}
-              {viewedClash.artists && viewedClash.artists.map((artist,index)=>(
-                <div
-                key={index}
-                className="p-2 cursor-pointer bg-white hover:brightness-75 h-full "
-                onClick={() => navigate("/profil/" + artist)}
-              >
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar src="/static/images/avatar/1.jpg" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={""}
-                    secondary={
-                      <>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                          fontWeight={700}
-                        ></Typography>
-                        {" — "}
-                        <span> {artist} </span>
-                      </>
-                    }
-                  />
-                </ListItem>
+                </div>)
+              }
+                <strong>Participants : </strong>
+              <div className="contestant-list bg-slate-200 overflow-scroll h-[50vh] w-[90vw] md:w-[800px] md:h-[400px] bg-slate-500-500 ">
+                {viewedClash.contestants.map((contestant, index) => (
+                  <div
+                    key={index}
+                    className="p-2 cursor-pointer h-fit bg-white hover:brightness-75 "
+                    onClick={() => navigate("/profil/" + contestant)}
+                  >
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar src="/static/images/avatar/1.jpg" />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={contestant}
+                        secondary={
+                          <>
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="body2"
+                              color="text.primary"
+                              fontWeight={700}
+                            ></Typography>
+                            <span>{"-"} score :</span>
+                          </>
+                        }
+                      />
+                    </ListItem>
+                  </div>
+                ))}
               </div>
-              ))}
             </div>
           </div>
         </div>

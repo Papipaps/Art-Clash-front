@@ -8,8 +8,11 @@ min-width: fit-content;
 height: 100vh;
 margin-left: 72px;
 }
-@media (1024px <= width ){  
+
+@media ( width <= 640px ){  
   .main-content{  
+    margin-left: 0px;
+
   }
 }
 @media (width > 1024px){  

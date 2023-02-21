@@ -112,15 +112,15 @@ export default function GuessGame() {
             </ul>
             <button
               onClick={onGameStart}
-              className="p-4 border border-black rounded-lg bg-white"
+              className="p-4  rounded-lg bg-white"
             >
               START
             </button>
           </div>
         </Popup>
       ) : (
-        <main className="border border-black w-4/5 h-fit p-10 min-w-fit ">
-          <div className="absolute w-fit text-center text-5xl p-4 border border-black rounded-lg top-10 left-1/2">
+        <main className=" w-4/5 h-fit p-10 min-w-fit ">
+          <div className="absolute w-fit text-center text-5xl p-4  rounded-lg top-10 left-1/2">
             {timer}
           </div>
           <h1>
@@ -131,7 +131,7 @@ export default function GuessGame() {
           <form onSubmit={handleGuess}>
             <label htmlFor="guessInput">Devinez ! </label>
             <input
-              className="border border-black m-10"
+              className=" m-10"
               name="guessInput"
               type="text"
               ref={guessRef}

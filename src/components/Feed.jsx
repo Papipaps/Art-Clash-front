@@ -51,7 +51,7 @@ function Feed() {
 
   return (
     <div>
-        {<div className=" bg-white flex flex-col w-full place-items-center">
+        {<div className=" bg-slate-50 flex flex-col place-items-center">
             {posts.map((post) =>
                 <LazyLoad>
                     <div>  

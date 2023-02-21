@@ -4,8 +4,7 @@ import Sidebar from "./SidebarCopy";
 import Community from "./Community";
 import Project from "./Project";
 import Contact from "./Contact";
-import "../styles/UserProfil.css";
-import "../styles/Popup.css";
+ import "../styles/Popup.css";
 import GalleryGrid from "./GalleryGrid";
 import ProfileService from "../service/profil.service";
 import profilDTO from "../data/dto/profilDTO";
@@ -46,7 +45,7 @@ export default function Profil() {
         <GalleryGrid isCurrentUser={isCurrentUser} profile={user} />
       );
       setIsLoading(false);
-    } else if (username === 'Papipaps') {
+    } else if (username === "Papipaps") {
       setIsCurrentUser(false);
       setViewedProfil(mockProfils[0]);
       setTabComponent(
@@ -56,14 +55,16 @@ export default function Profil() {
     } else {
       setIsCurrentUser(false);
       setViewedProfil(
-        mockProfils.filter((p) => p.id !== 'uuid-admin')[Math.floor(Math.random() * 49)]
+        mockProfils.filter((p) => p.id !== "uuid-admin")[
+          Math.floor(Math.random() * 49)
+        ]
       );
       setTabComponent(
         <GalleryGrid isCurrentUser={false} profile={viewedProfil} />
       );
       setIsLoading(false);
     }
-  }, [username,user]);
+  }, [username, user]);
 
   return (
     <>
@@ -72,19 +73,17 @@ export default function Profil() {
           <div className="flex flex-col min-w-fit break-words bg-white h-full w-full   ">
             {/* PROFIL INFO CARD */}
             <div
-              style={{
-                backgroundSize: "cover",
-                backgroundImage: `url(${defaultBackgroundImage})`,
-              }}
-              className={`profile-info py-4  text-center min-h-[400px] h-[400px]`}
+              className="profile-info py-4 text-center min-h-[400px]"
+              style={{ backgroundImage: `url(${defaultBackgroundImage})` }}
             >
-              <div className="flex flex-wrap justify-center text-white">
-                <div className="border border-white h-[250px] w-[250px]">
-                  {" "}
-                  <img src={defaultavatar} alt="" srcset="" />
-                </div>
-                <div className="profil-primary w-full">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
+              <div className="text-white flex flex-col items-center">
+                <img
+                  className="border border-white aspect-square max-w-[250px]"
+                  src={defaultavatar}
+                  alt="Profile Avatar"
+                />
+                <div className="profile-primary w-full">
+                  <h3 className="text-blueGray-700">
                     {viewedProfil.anonymous ? (
                       viewedProfil.username
                     ) : (
@@ -99,26 +98,28 @@ export default function Profil() {
                       </div>
                     )}
                   </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2  font-bold uppercase">
+                  <div className="text-sm leading-normal mt-0 mb-2 font-bold uppercase">
                     {viewedProfil.country} based {viewedProfil.category}
                   </div>
                 </div>
               </div>
             </div>
             {/* PROFIL CONNECT */}
-            <div className="w-full gap-2    first-letter:text-center flex justify-center   px-12 py-6">
-              <p className="mb-4    w-[500px] max-h-[150px] overflow-hidden self-center text-justify  ">
+            <div className="w-full  flex sm:flex-row flex-col items-center ">
+              <div className="max-h-[150px] w-full flex justify-center p-4 text-justify ">
+                <p className="text-center sm:w-[500px]">
+
                 {viewedProfil.description
                   ? "Bio : " + viewedProfil.description
                   : "Cet utilisateur n'a pas de bio.. 😅"}
-              </p>
-              <span className="  max-h-[150px] flex-col flex justify-evenly">
-                <Button className="p-4" color="primary">
+                  </p>
+              </div>
+              <span className="max-h-[150px] py-2">
+                <Button color="primary">
                   <GrContactInfo size={30} />
                 </Button>
                 {isCurrentUser && (
-                  <Button
-                    className="p-4"
+                  <Button 
                     onClick={() => {
                       navigate("/profil-edit");
                     }}
@@ -129,8 +130,8 @@ export default function Profil() {
                 )}
               </span>
             </div>
-            {/* PROFIL TAB CONTENT */}
-            <div className="profil-content-tab  relative flex justify-around">
+            {/* PROFIL TABS */}
+            <div className=" flex justify-around">
               <div className={`profil-content-tab-items`}>
                 <button
                   onClick={() => {
@@ -156,7 +157,6 @@ export default function Profil() {
                   Projets
                 </button>
               </div>
-
               <div className={`profil-content-tab-items `}>
                 <button
                   onClick={() => {

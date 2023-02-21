@@ -1,12 +1,39 @@
 export default [
   {
+    id: "special-clash",
+    ownerName: "L'équipe ArtClash",
+    ownerId: "uuid-admin",
+    title: "Evenement spécial ! #1",
+    theme: "Autoportrait",
+    description:
+      "Bienvenue dans ce premier clash !\nPour cette première édition de Clash faisons connaissance ! Le but sera de faire un autoportrait original de vous. Bien évidemment, pour ceux qui ne veulent pas se representer vous pourrez toujours  mettre en avant un personnage ou objet qui vous represente le plus ! (ex : Un personnage euphorique pour representer votre bonne humeur constante, un burger avec des ingrédients atypique pour les mangeurs(et mangeuse !).\n Amusez-vous !",
+    createdDate: "2023-02-15T23:26:58.7968477",
+    contestants: [
+      "uuid-admin",
+      "9e24e43e-0a49-472f-b8ae-89f454ad307f",
+      "d767a3e6-9071-4a26-944c-e4bf6eaba770",
+      "20b0c5ca-d691-4fd3-a998-f8f5908d9982",
+      "1b794a67-8e2c-49d4-b018-54c132174267",
+      "44783c5e-06ff-4c74-b614-f87fa0bccca1",
+      "4d801ff8-21ff-47e0-8197-16dace036a65",
+      "5b6f47ba-53b1-42b7-a906-e72f501367b5",
+    ],
+    first: "uuid-admin",
+    second: "9e24e43e-0a49-472f-b8ae-89f454ad307f",
+    third: "d767a3e6-9071-4a26-944c-e4bf6eaba770",
+    round: 3,
+    status: "OPEN",
+    slot: 10,
+  },
+  {
     id: "44316c31-b296-4f34-92c8-faff79078323",
+    ownerName: "",
     ownerId: "uuid-admin",
     title: "Titre",
     theme: "Freestyle",
     description: "description",
     createdDate: "2023-02-15T23:26:58.7968477",
-    contestant: [
+    contestants: [
       "uuid-admin",
       "9e24e43e-0a49-472f-b8ae-89f454ad307f",
       "d767a3e6-9071-4a26-944c-e4bf6eaba770",
@@ -25,12 +52,13 @@ export default [
   },
   {
     id: "0f83a0aa-2f23-47c7-a17d-eb291ed775b4",
+    ownerName: "",
     ownerId: "4db4e3d3-1877-4a28-8e7d-3e3c3cc3d53a",
     title: "Inspire toi d'une chanson !",
     theme: "Recréation",
     description: "Une chanson de rap sur la vie dans la rue",
     createdDate: "2023-02-15T23:26:58.7968477",
-    contestant: [
+    contestants: [
       "4db4e3d3-1877-4a28-8e7d-3e3c3cc3d53a",
       "d0550c9e-ee36-48b5-87d5-3616355a5c5e",
       "a057d10f-4fb4-4b4d-8ef7-3103c8e8b232",
@@ -49,12 +77,13 @@ export default [
   },
   {
     id: "c08ebf58-7af8-495f-b358-9d9c2d22f8dc",
+    ownerName: "",
     ownerId: "7a3a3dd1-7c02-415a-a67f-9f9dbbfc7a8a",
     title: "Peinture",
     theme: "Abstrait",
     description: "Une peinture abstraite avec des couleurs vives",
     createdDate: "2023-02-11T23:26:58.7968477",
-    contestant: [
+    contestants: [
       "7a3a3dd1-7c02-415a-a67f-9f9dbbfc7a8a",
       "c086f6ec-4aa1-4f4e-8f4d-2f8495b5c6e5",
       "f28d34e1-36d6-4cf2-a408-f8d9bde9d62e",
@@ -74,12 +103,13 @@ export default [
 
   {
     id: "16e636cc-50f6-4e17-99f1-d2f37c0e6a8a",
+    ownerName: "",
     ownerId: "f2f6b0a6-15de-4f3b-b32a-bc47cf37dcb5",
     title: "Film",
     theme: "Comédie",
     description: "Un film comique sur des amis qui partent en vacances",
     createdDate: "2023-02-13T23:26:58.7968477",
-    contestant: [
+    contestants: [
       "f2f6b0a6-15de-4f3b-b32a-bc47cf37dcb5",
       "f3b3c3b9-2746-4a70-978b-f883e61e174d",
       "dbdd28f2-1f7a-4c95-bfa7-29f1664b59f4",

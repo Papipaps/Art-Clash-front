@@ -5,10 +5,15 @@ import Popup from "./Popup";
 import CommentSection from "./CommentSection";
 import { API_CONTEXT } from "../utils/Paths";
 
-export default function Panel({ item }) {
+export default function Panel({ item }, height="100%", width="100%") {
   const [isPopupOpen, setPopupOpen] = useState(false);
   return (
-    <section className="panel">
+    <section 
+    style={{
+      width:width,
+      height:height
+    }}
+    className="panel">
       {isPopupOpen && (
         <Popup
           className="panel-popup "

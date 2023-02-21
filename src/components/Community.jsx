@@ -133,7 +133,7 @@ export default function Community(props) {
           POSTS : <span className="font-bold">{totalPost}</span>
         </h1>
 
-        <div className="w-[550px]  border border-black gap-4">
+        <div className="w-[550px]   gap-4">
           {posts.map((post) => {
             const d = new Date(post.postedAt.year,
               post.postedAt.month - 1,
